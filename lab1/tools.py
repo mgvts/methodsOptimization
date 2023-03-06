@@ -10,12 +10,11 @@ class Func:
     """
         variables is [xi for i in range(number_of_variables)]
     """
+
     def __init__(self, number_of_variables: int, function_string, *args):
         sp.init_printing(use_unicode=True)
         self.sp_variables = sp.symbols("x:" + str(number_of_variables))
         self.string_variables = ["x" + str(i) for i in range(number_of_variables)]
-        print(f"{self.sp_variables = }")
-        print(f"{self.string_variables = }")
         self.f = sp.sympify(function_string)
 
     def diff(self, variable):
@@ -25,6 +24,7 @@ class Func:
         [("x0", 1), ("x1", 2)] ->  [(x0, 1), (x1, 2)]
         where x1 x2 is sp.symbols
     """
+
     def _parse_arguments(self, l):
         res = [(self.sp_variables[self.string_variables.index(variable)], value) for variable, value in l]
         return res
@@ -40,6 +40,7 @@ class Func:
         variable_value = [("x0", 1), ("x1", 2)]
         variable_value = value
     """
+
     def eval(self, variable_value):
         return self.f.subs(self._parse_arguments(variable_value))
 
@@ -47,12 +48,26 @@ class Func:
         without vectors like grad("0.5x^2 + bx + c") = ax + b
         without vectors like grad("x^2 + y^2") = 2x + 2y
     """
+
     def grad(self):
         result = sp.sympify("0")
         for xi in self.sp_variables:
             result += self.f.diff(xi)
         return Func(len(self.sp_variables), str(result))
 
+    """
+        variable_value = [("x0", 1), ("x1", 2)]
+        variable_value = value
+    """
+
+    def metric(self, variable_value):
+        v = list(sp.ordered(self.f.free_symbols))
+        gradient = lambda ff, v: sp.Matrix([ff]).jacobian(v)
+        g = gradient(self.f, v).subs(self._parse_arguments(variable_value))
+        res = 0
+        for i in g:
+            res += i * i
+        return sp.sqrt(res).evalf()
+
     def __str__(self):
         return str(self.f)
-
