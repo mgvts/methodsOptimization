@@ -1,11 +1,8 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib
-import sympy as sp
-import math
-import re
-from random import randint, random, uniform
 from decimal import Decimal
+from random import randint, random, uniform
+
+import numpy as np
+import sympy as sp
 
 
 class Func:
@@ -78,6 +75,7 @@ class QFunc:
     """
         Quadratic function
     """
+
     def __init__(self, n, A, b, c):
         sp.init_printing(use_unicode=True)
         if A is None:
@@ -137,6 +135,15 @@ def create_random_quadratic_func(n: int, k: float):
         res[-1] = ma
         return res
 
+    def change_basis(diag_a):
+        # 50 - constВ
+        b = sp.Matrix(np.random.randint(0, 50, (n, n)))
+        q, r = b.QRdecomposition()
+        a = q * diag_a * q.transpose()
+        a: sp.Matrix
+        print('After change basis, mi =', min(a.eigenvals().keys()), 'ma =', max(a.eigenvals().keys()))
+        return a
+
     # b and c must be anyone
     b = sp.Matrix([0 for _ in range(n)])
     c = 5
@@ -147,4 +154,8 @@ def create_random_quadratic_func(n: int, k: float):
     a_max = Decimal(k / a_min)
     a_max, a_min = max(a_max, a_min), min(a_max, a_min)
 
-    return QFunc(n, sp.diag(*get_vector(a_min, a_max, n)), b, c)
+    return QFunc(n, change_basis(sp.diag(*get_vector(a_min, a_max, n))), b, c)
+
+
+a = create_random_quadratic_func(5, 10)
+print(a.f)
