@@ -102,10 +102,6 @@ class QFunc:
 
     def cond(self):
         return self.A.condition_number()
-        lambdas = self.get_lamdas()
-        L = max([i for i in lambdas])
-        l = min([i for i in lambdas])
-        return L / l
 
     """
         :return list of tuples [(lambda, gamma(lambda)]
