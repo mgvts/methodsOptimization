@@ -4,6 +4,8 @@ import matplotlib
 import sympy as sp
 import math
 import re
+from random import randint, random
+from decimal import Decimal
 
 
 class Func:
@@ -57,7 +59,6 @@ class Func:
 
     """
         variable_value = [("x0", 1), ("x1", 2)]
-        variable_value = value
     """
 
     def metric(self, variable_value):
@@ -71,3 +72,73 @@ class Func:
 
     def __str__(self):
         return str(self.f)
+
+
+class Quadratic_func():
+    def __init__(self, n, A, b, c):
+        sp.init_printing(use_unicode=True)
+        if A == None:
+            self.A = sp.eye(n)
+            b = sp.Matrix([0 for i in range(n)])
+            c = 0
+        else:
+            self.A = A
+        self.list_variables = sp.symbols("x:" + str(n))
+        self.v = sp.Matrix(list(sp.ordered(self.list_variables)))
+        self._createFunc(n, self.A, b, c)
+
+    def _createFunc(self, n, A, b, c):
+        self.f = sp.sympify(0)
+        for i in range(n):
+            for j in range(n):
+                self.f += A[i, j] * self.v[i] * self.v[j]
+        for i in range(n):
+            self.f += b[i] * self.v[i]
+        self.f += c
+
+    def __str__(self):
+        return str(self.f)
+
+    def cond(self):
+        lambdas = self.get_lamdas()
+        print(f"{lambdas = }")
+        L = max([i for i in lambdas])
+        l = min([i for i in lambdas])
+        print(f"{L = } {l = }")
+        return L / l
+
+    """
+        :return list of tuples [(lambda, gamma(lambda)]
+        gamma(lambda) its power in det(A - tE)
+    """
+
+    def get_lamdas(self):
+        return list(dict(self.A.eigenvals()).keys())
+
+
+# fall if mi == ma
+# 3 3.(3)
+def create_random_quadratic_func(n: int, k: float):
+    if k < 1:
+        raise AssertionError("k must be >= 1")
+
+    def get_vector(mi, ma, size):
+        print(f"{mi = } {ma = }")
+        if int(ma) - int(mi) == 1:
+            res = [random() + mi for _ in range(size)]
+        else:
+            res = [random() + randint(int(mi), int(ma) - 1) for _ in range(size)]
+        res[0] = mi
+        res[-1] = ma
+        return res
+
+    # b and c must be anyone
+    b = sp.Matrix([0 for _ in range(n)])
+    c = 5
+    if int(k) == 1:
+        a_min = 1
+    else:
+        a_min = Decimal(randint(1, int(k) - 1))
+    a_max = Decimal(k / a_min)
+    a_max, a_min = max(a_max, a_min), min(a_max, a_min)
+    return Quadratic_func(n, sp.diag(*get_vector(a_min, a_max, n)), b, c)
