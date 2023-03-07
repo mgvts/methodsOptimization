@@ -16,7 +16,7 @@ n = 10
 
 assert n >= 2
 
-#if k in (1, 2) this is fall
+# if k in (1, 2) this is fall
 a_max = Decimal(random.randint(math.ceil(k / 2), k))
 a_min = Decimal(k / a_max)
 

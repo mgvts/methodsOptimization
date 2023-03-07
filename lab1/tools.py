@@ -4,7 +4,7 @@ import matplotlib
 import sympy as sp
 import math
 import re
-from random import randint, random
+from random import randint, random, uniform
 from decimal import Decimal
 
 
@@ -74,10 +74,13 @@ class Func:
         return str(self.f)
 
 
-class Quadratic_func():
+class QFunc:
+    """
+        Quadratic function
+    """
     def __init__(self, n, A, b, c):
         sp.init_printing(use_unicode=True)
-        if A == None:
+        if A is None:
             self.A = sp.eye(n)
             b = sp.Matrix([0 for i in range(n)])
             c = 0
@@ -117,17 +120,19 @@ class Quadratic_func():
 
 
 # fall if mi == ma
-# 3 3.(3)
+# 3 3.(3), вроде пофиксил
 def create_random_quadratic_func(n: int, k: float):
     if k < 1:
         raise AssertionError("k must be >= 1")
 
     def get_vector(mi, ma, size):
         print(f"{mi = } {ma = }")
+        if mi == ma:
+            return [mi for _ in range(size)]
         if int(ma) - int(mi) == 1:
             res = [random() + mi for _ in range(size)]
         else:
-            res = [random() + randint(int(mi), int(ma) - 1) for _ in range(size)]
+            res = [uniform(float(mi), float(ma)) for _ in range(size)]
         res[0] = mi
         res[-1] = ma
         return res
@@ -141,4 +146,5 @@ def create_random_quadratic_func(n: int, k: float):
         a_min = Decimal(randint(1, int(k) - 1))
     a_max = Decimal(k / a_min)
     a_max, a_min = max(a_max, a_min), min(a_max, a_min)
-    return Quadratic_func(n, sp.diag(*get_vector(a_min, a_max, n)), b, c)
+
+    return QFunc(n, sp.diag(*get_vector(a_min, a_max, n)), b, c)
