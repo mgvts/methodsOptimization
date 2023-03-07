@@ -101,11 +101,10 @@ class QFunc:
         return str(self.f)
 
     def cond(self):
+        return self.A.condition_number()
         lambdas = self.get_lamdas()
-        print(f"{lambdas = }")
         L = max([i for i in lambdas])
         l = min([i for i in lambdas])
-        print(f"{L = } {l = }")
         return L / l
 
     """
@@ -117,18 +116,16 @@ class QFunc:
         return list(dict(self.A.eigenvals()).keys())
 
 
-# fall if mi == ma
-# 3 3.(3), вроде пофиксил
-def create_random_quadratic_func(n: int, k: float):
+# Если n == 1, то mi = ma, и k всегда = 1
+def generate_quadratic_func(n: int, k: float) -> QFunc:
     if k < 1:
         raise AssertionError("k must be >= 1")
 
     def get_vector(mi, ma, size):
-        print(f"{mi = } {ma = }")
         if mi == ma:
             return [mi for _ in range(size)]
         if int(ma) - int(mi) == 1:
-            res = [random() + mi for _ in range(size)]
+            res = [random() + float(mi) for _ in range(size)]
         else:
             res = [uniform(float(mi), float(ma)) for _ in range(size)]
         res[0] = mi
@@ -141,23 +138,16 @@ def create_random_quadratic_func(n: int, k: float):
         q, r = b.QRdecomposition()
         # q - ортоганальная
         a = q * diag_a * q.transpose()
-        a: sp.Matrix
-        print('After change basis, mi =', min(a.eigenvals().keys()), 'ma =', max(a.eigenvals().keys()))
-        print('Current cond: ', a.condition_number(), 'Reference cond: ', k)
         return a
 
     # b and c must be anyone
     b = sp.Matrix([0 for _ in range(n)])
     c = 5
     if int(k) == 1:
-        a_min = 1
+        a_min = Decimal(1)
     else:
         a_min = Decimal(randint(1, int(k) - 1))
-    a_max = Decimal(k * a_min)
+    a_max = Decimal(Decimal(k) * a_min)
     a_max, a_min = max(a_max, a_min), min(a_max, a_min)
 
     return QFunc(n, change_basis(sp.diag(*get_vector(a_min, a_max, n))), b, c)
-
-
-a = create_random_quadratic_func(5, 10)
-print(a.f)
