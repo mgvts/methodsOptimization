@@ -139,9 +139,11 @@ def create_random_quadratic_func(n: int, k: float):
         # 50 - constВ
         b = sp.Matrix(np.random.randint(0, 50, (n, n)))
         q, r = b.QRdecomposition()
+        # q - ортоганальная
         a = q * diag_a * q.transpose()
         a: sp.Matrix
         print('After change basis, mi =', min(a.eigenvals().keys()), 'ma =', max(a.eigenvals().keys()))
+        print('Current cond: ', a.condition_number(), 'Reference cond', k)
         return a
 
     # b and c must be anyone
@@ -151,7 +153,7 @@ def create_random_quadratic_func(n: int, k: float):
         a_min = 1
     else:
         a_min = Decimal(randint(1, int(k) - 1))
-    a_max = Decimal(k / a_min)
+    a_max = Decimal(k * a_min)
     a_max, a_min = max(a_max, a_min), min(a_max, a_min)
 
     return QFunc(n, change_basis(sp.diag(*get_vector(a_min, a_max, n))), b, c)
