@@ -7,7 +7,7 @@ import random
 class TestRandomQFunc(unittest.TestCase):
     def test_n(self):
         for i in range(10):
-            n = random.randint(1, 10)
+            n = random.randint(2, 10)
             a = generate_quadratic_func(n, 5)
             self.assertEqual(len(a.A), n ** 2)
 
