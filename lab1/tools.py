@@ -23,7 +23,6 @@ class Func:
         [("x0", 1), ("x1", 2)] ->  [(x0, 1), (x1, 2)]
         where x1 x2 is sp.symbols
     """
-
     def _parse_arguments(self, l):
         res = [(self.sp_variables[self.string_variables.index(variable)], value) for variable, value in l]
         return res
@@ -35,29 +34,26 @@ class Func:
     #     regex_pattern = '|'.join(map(re.escape, delimiters))
     #     return [i for i in re.split(regex_pattern, s) if i != ""]
 
-    """
-        variable_value = [("x0", 1), ("x1", 2)]
-        variable_value = value
-    """
-
     def eval(self, variable_value):
         return self.f.subs(self._parse_arguments(variable_value))
 
-    """
-        without vectors like grad("0.5x^2 + bx + c") = ax + b
-        without vectors like grad("x^2 + y^2") = 2x + 2y
-    """
-
     def grad(self, variable_value) -> sp.Matrix:
+        """
+        :param variable_value: point where we calculating function
+        # [("x0", 1), ("x1", 2)]
+        :return: vector of meaning grad in point
+        """
         v = list(sp.ordered(self.f.free_symbols))
         gradient = lambda ff, v: sp.Matrix([ff]).jacobian(v)
         g = gradient(self.f, v).subs(self._parse_arguments(variable_value))
         return g
 
-    """
-        variable_value = [("x0", 1), ("x1", 2)]
-    """
-    def metric_of_gradient_in_point(self, variable_value):
+    def metric_of_gradient_in_point(self, variable_value) -> float:
+        """
+        :param variable_value: point where we calculating function
+        # [("x0", 1), ("x1", 2)]
+        :return: ||∇f(x)||
+        """
         v = list(sp.ordered(self.f.free_symbols))
         gradient = lambda ff, vv: sp.Matrix([ff]).jacobian(vv)
         g = gradient(self.f, v).subs(self._parse_arguments(variable_value))
