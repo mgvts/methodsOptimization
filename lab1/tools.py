@@ -116,47 +116,41 @@ class QFunc:
         return list(dict(self.A.eigenvals()).keys())
 
 
-# fall if mi == ma
-# 3 3.(3), вроде пофиксил
-def create_random_quadratic_func(n: int, k: float):
+# todo: либо все float, либо Decimal, либо Fraction
+def generate_quadratic_func(n: int, k: float) -> QFunc:
+    """
+    :param n: Count of vars
+    :param k: Number of cond
+    :return: Random QFunc
+    """
+
     if k < 1:
         raise AssertionError("k must be >= 1")
+    # если n == 1, то mi = ma, и k всегда = 1
+    if n == 1: # todo, не уверен, что в таком случае нужно
+        raise AssertionError("n must be > 1")
 
-    def get_vector(mi, ma, size):
-        print(f"{mi = } {ma = }")
-        if mi == ma:
-            return [mi for _ in range(size)]
-        if int(ma) - int(mi) == 1:
-            res = [random() + mi for _ in range(size)]
-        else:
-            res = [uniform(float(mi), float(ma)) for _ in range(size)]
-        res[0] = mi
-        res[-1] = ma
-        return res
-
-    def change_basis(diag_a):
-        # 50 - constВ
-        b = sp.Matrix(np.random.randint(0, 50, (n, n)))
-        q, r = b.QRdecomposition()
-        # q - ортоганальная
-        a = q * diag_a * q.transpose()
-        a: sp.Matrix
-        print('After change basis, mi =', min(a.eigenvals().keys()), 'ma =', max(a.eigenvals().keys()))
-        print('Current cond: ', a.condition_number(), 'Reference cond', k)
-        return a
-
-    # b and c must be anyone
-    b = sp.Matrix([0 for _ in range(n)])
-    c = 5
+    # 1. генерируем диагональную матрицу, diag(a_min ... a_max)
+    # генерируем a_min, a_max
     if int(k) == 1:
-        a_min = 1
+        a_min = Decimal(1)
     else:
         a_min = Decimal(randint(1, int(k) - 1))
-    a_max = Decimal(k * a_min)
+    a_max = Decimal(Decimal(k) * a_min)
     a_max, a_min = max(a_max, a_min), min(a_max, a_min)
+    v = [float(a_min)] + [uniform(float(a_min), float(a_max)) for _ in range(n - 2)] + [float(a_max)]
+    A = sp.diag(*v)
 
-    return QFunc(n, change_basis(sp.diag(*get_vector(a_min, a_max, n))), b, c)
+    # A - диагональная матрица с числом обусловленности k
+    # A - уже квадратичная форма. в каноническом виде
+    # 2. любая квадратичная форма приводится к каноническому виду, с помощью ортоганального преобразования
+    #   Q^(T) * B * Q = A
+    #   Q - ортоганальная матрица -> Q^(-1) = Q^(T)
+    #   тогда B = Q * A * Q^(T)
+    #   нужно сгенерировтаь ортоганальную матрицу
+    C = sp.Matrix(np.random.randint(0, 50, (n, n)))
+    Q, R = C.QRdecomposition()
+    B = Q * A * Q.transpose()
 
+    return QFunc(n, B, sp.Matrix([0 for _ in range(n)]), 5)
 
-a = create_random_quadratic_func(5, 10)
-print(a.f)
