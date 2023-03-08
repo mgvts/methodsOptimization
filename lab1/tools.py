@@ -48,18 +48,18 @@ class Func:
         without vectors like grad("x^2 + y^2") = 2x + 2y
     """
 
-    def grad(self):
-        result = sp.sympify("0")
-        for xi in self.sp_variables:
-            result += self.f.diff(xi)
-        return Func(len(self.sp_variables), str(result))
+    def grad(self, variable_value) -> sp.Matrix:
+        v = list(sp.ordered(self.f.free_symbols))
+        gradient = lambda ff, v: sp.Matrix([ff]).jacobian(v)
+        g = gradient(self.f, v).subs(self._parse_arguments(variable_value))
+        return g
 
     """
         variable_value = [("x0", 1), ("x1", 2)]
     """
     def metric_of_gradient_in_point(self, variable_value):
         v = list(sp.ordered(self.f.free_symbols))
-        gradient = lambda ff, v: sp.Matrix([ff]).jacobian(v)
+        gradient = lambda ff, vv: sp.Matrix([ff]).jacobian(vv)
         g = gradient(self.f, v).subs(self._parse_arguments(variable_value))
         res = 0
         for i in g:
@@ -127,7 +127,7 @@ def generate_quadratic_func(n: int, k: float) -> QFunc:
     if k < 1:
         raise AssertionError("k must be >= 1")
     # если n == 1, то mi = ma, и k всегда = 1
-    if n == 1: # todo, не уверен, что в таком случае нужно
+    if n == 1:  # todo, не уверен, что в таком случае нужно
         raise AssertionError("n must be > 1")
 
     # 1. генерируем диагональную матрицу, diag(a_min ... a_max)
@@ -153,4 +153,3 @@ def generate_quadratic_func(n: int, k: float) -> QFunc:
     B = Q * A * Q.transpose()
 
     return QFunc(n, B, sp.Matrix([0 for _ in range(n)]), 5)
-
