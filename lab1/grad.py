@@ -4,8 +4,8 @@ import sympy as sp
 
 from lab1.tools import Func
 
-eps = 0.1
-alpha = 0.01
+eps = 0.01
+alpha = 0.001
 
 
 def grad_down(n, string_func):
@@ -14,7 +14,7 @@ def grad_down(n, string_func):
     # todo move x in args
     x = sp.Matrix([[random.randint(-10, 10) for i in range(n)]])
     print(x)
-    x = sp.Matrix([[-10, 0]])
+    # x = sp.Matrix([[-10, 0]])
 
     def to_args(t):
         return [(f"x{i}", t[i]) for i in range(n)]
@@ -27,11 +27,7 @@ def grad_down(n, string_func):
         y = x - alpha * f.grad(to_args(x))
         if f.eval(to_args(y)) < f.eval(to_args(x)):
             x = y
-        else:
-            x += sp.Matrix([[random.uniform(-0.01, 0.01) for i in range(n)]])
-            # todo надо что делать?
-            pass
             # alpha = const in 1st task
             # alpha = alpha / 2
-        print(f.metric_of_gradient_in_point(to_args(x)), x, y)
+        # print(f.metric_of_gradient_in_point(to_args(x)), x, y)
     return x

@@ -13,16 +13,16 @@ tests_grad_in_point = [
 ]
 
 tests_s = [
-    (1, 'x0^2', [0]),
-    (1, 'x0^2 + 10', [0]),
-    (1, 'x0^4 + 10', [0]),
-    # (1, 'x0^6 - 10', [0]), разве нет минимума?
+    # (1, 'x0^2', [0]),
+    # (1, 'x0^2 + 10', [0]),
+    # (1, 'x0^4 + 10', [0]),
+    # (1, 'x0^6 - 10', [0]),
     # (2, 'x0^4 + x1^2 - 10', [0, 0]),
     # (2, 'x0^6 + (x1 - 1)^2 - 10', [0, 1]),
     # (2, '(x0 + 8)^6 + (x1 - 1)^2 - 10', [-8, 1]),
     # (2, '(x0 + 8)^6 + (x1 - 1)^2 - 10', [-8, 1]),
-    # (2, 'x0^2 * x1^2 - 10', [0, 0]),
-    # (2, 'x0^2 * (x1+2)^2 - 10', [0, -2])
+    (2, 'x0^2 * x1^2 - 10', [0, 0]),
+    (2, 'x0^2 * (x1+2)^2 - 10', [0, -2])
 ]
 
 
@@ -36,6 +36,10 @@ class TestRandomGradient(unittest.TestCase):
             f = Func(n, s)
             self.assertEqual(list(f.grad(to_args(m, n))), a)
 
+    # долго
     def test_readable_grad(self):
         for n, s, a in tests_s:
-            print(grad_down(n, s))
+            y = list(grad_down(n, s))
+            print(s, y)
+            for i in range(n):
+                self.assertLess(abs(a[i] - y[i]), 0.5)
