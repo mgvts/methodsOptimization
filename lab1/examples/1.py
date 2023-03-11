@@ -14,5 +14,5 @@ print(x := grad_down_metric_between_difference(n, stringFunc,
 print(Func(n, stringFunc).eval(to_args(x, n)))
 
 print(x := grad_down_metric(n, stringFunc, start_point,
-                            lambda f, alpha: alpha))
+                            lambda f: 0.01))
 print(Func(n, stringFunc).eval(to_args(x, n)))

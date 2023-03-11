@@ -10,14 +10,12 @@ from lab1.tools import Func, to_args
 
 # lambda_k=min_{\lambda} (\,f(x^{[k]}-\lambda\nabla f(x^{[k]}))
 # findMin ищет лямбду на которую надо умножить градиент
-def findMin(f: Func, alpha=None, eps=0.001, delta=0.00015):
+def findMin(f: Func, eps=0.001, delta=0.00015):
     def calc_min_iterations():
         return sp.log((b - a - delta) / (2 * eps - delta), 2)
 
     if f.get_n() != 1:
         raise AssertionError("метод дихотомии применим только для функции от одной переменной")
-    if alpha is not None:
-        return alpha
 
     a = 0
     b = 1
