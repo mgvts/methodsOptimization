@@ -1,6 +1,6 @@
 import unittest
 
-from lab1.grad import grad_down
+from lab1.grad import grad_down_metric
 from lab1.tools import Func
 
 # func, point, ans
@@ -8,7 +8,7 @@ tests_grad_in_point = [
     (3, 'x0 + ln(x2^2 + x1^2)', [2, 1, 1], [1, 1, 1]),
     # https://xn--24-6kcaa2awqnc8dd.xn--p1ai/gradient-funkcii-v-tochke.html
     (3, 'x0^2 + 2*x0*x1 + x1^2 + x2^2', [1, 1, 1], [4, 4, 2]),  # https://math.semestr.ru/math/grad.php
-    (3, 'x0^2 + 2*x0*x1 + x1^2 + x2^2', [2, -1, 0], [2, 1, 0])
+    (3, 'x0^2 + 2*x0*x1 + x1^2 + x2^2', [2, -1, 0], [2, 2, 0])
     # a очно праивльный тест? из калькулятора  grad(u)=(2·x+2·y)·i + (2·x+2·y)·j + 2·z·k
 ]
 
@@ -39,7 +39,7 @@ class TestRandomGradient(unittest.TestCase):
     # долго
     def test_readable_grad(self):
         for n, s, a in tests_s:
-            y = list(grad_down(n, s))
+            y = list(grad_down_metric(n, s))
             print(s, y)
             for i in range(n):
                 self.assertLess(abs(a[i] - y[i]), 0.5)

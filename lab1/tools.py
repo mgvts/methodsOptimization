@@ -23,6 +23,7 @@ class Func:
         [("x0", 1), ("x1", 2)] ->  [(x0, 1), (x1, 2)]
         where x1 x2 is sp.symbols
     """
+
     def _parse_arguments(self, l):
         res = [(self.sp_variables[self.string_variables.index(variable)], value) for variable, value in l]
         return res
@@ -149,3 +150,14 @@ def generate_quadratic_func(n: int, k: float) -> QFunc:
     B = Q * A * Q.transpose()
 
     return QFunc(n, B, sp.Matrix([0 for _ in range(n)]), 5)
+
+
+def to_args(t, n):
+    return [(f"x{i}", t[i]) for i in range(n)]
+
+
+def get_metric2(x: sp.Matrix):
+    res = 0
+    for i in x:
+        res += i * i
+    return sp.sqrt(res).evalf()
