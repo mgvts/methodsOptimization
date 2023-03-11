@@ -1,25 +1,31 @@
 # conspects page 31
-import random
-from lab1.tools import Func
-import sympy as sp
 import math
+import random
+
+import sympy as sp
+
+from lab1.grad import grad_down_metric_between_difference, grad_down_metric
+from lab1.tools import Func, to_args
 
 
 # lambda_k=min_{\lambda} (\,f(x^{[k]}-\lambda\nabla f(x^{[k]}))
 # findMin ищет лямбду на которую надо умножить градиент
-def findMin():
+def findMin(f: Func, alpha=None, eps=0.001, delta=0.00015):
     def calc_min_iterations():
         return sp.log((b - a - delta) / (2 * eps - delta), 2)
 
+    if f.get_n() != 1:
+        raise AssertionError("метод дихотомии применим только для функции от одной переменной")
+    if alpha is not None:
+        return alpha
+
     a = 0
     b = 1
-    eps = 0.001
-    delta = 0.0015
     N = math.ceil(calc_min_iterations())
     x1 = (a + b - delta) / 2
     x2 = (a + b + delta) / 2
     for i in range(N):
-        print(f"{x1 = } {x2 = } {f.eval([('x0', x1)]) = } {f.eval([('x0', x2)]) = }")
+        # print(f"{x1 = } {x2 = } {f.eval([('x0', x1)]) = } {f.eval([('x0', x2)]) = }")
         # 1 step
         x1 = (a + b - delta) / 2
         x2 = (a + b + delta) / 2
@@ -37,30 +43,33 @@ def findMin():
     return (a + b) / 2
 
 
-def to_args(t):
-    return [(f"x{i}", t[i]) for i in range(n)]
+# f = Func(2, stringFunc)
+# eps = 0.0001
+# alpha = 0.001
+# x = sp.Matrix([[random.randint(0, 10) for _ in range(n)]])
+#
+# while True:
+#     # ||∇f(x)|| < ε
+#     if f.metric_of_gradient_in_point(to_args(x)) < eps:
+#         break
+#     while True:
+#         y = x - alpha * f.grad(to_args(x))
+#         if f.eval(to_args(y)) < f.eval(to_args(x)):
+#             x = y
+#             break
+#         alpha = findMin()
+#
+#     print(f"{x = }")
+#     print(f"{alpha = }")
+#
+# print(x)
 
 
-n = 2
-# todo fall
-stringFunc = "x0^2 + 2*x1 + 1"
-f = Func(2, stringFunc)
-eps = 0.01
-alpha = 0.1
-x = sp.Matrix([[random.randint(0, 10) for _ in range(n)]])
+n = 1
+stringFunc = "x0^2 - 10"
 
-while True:
-    # ||∇f(x)|| < ε
-    if f.metric_of_gradient_in_point(to_args(x)) < eps:
-        break
-    while True:
-        y = x - alpha * f.grad(to_args(x))
-        if f.eval(to_args(y)) < f.eval(to_args(x)):
-            x = y
-            break
-        alpha = findMin()
-
-    print(f"{x = }")
-    print(f"{alpha = }")
-
-print(x)
+# если x = Matrix([[-10, 0]]) , то бесконечный цикл
+start_point = sp.Matrix([[random.randint(-10, 10) for i in range(n)]])
+print(x := grad_down_metric(n, stringFunc,
+                            start_point, findMin))
+print(Func(n, stringFunc).eval(to_args(x, n)))

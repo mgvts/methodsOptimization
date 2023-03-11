@@ -12,13 +12,20 @@ class Func:
 
     def __init__(self, number_of_variables: int, function_string, *args):
         sp.init_printing(use_unicode=True)
+        self.f = sp.sympify(function_string)
+        if len(self.f.free_symbols) != number_of_variables:
+            raise AssertionError("n must be equals to amount of different variables")
+        self.n = number_of_variables
         self.sp_variables = sp.symbols("x:" + str(number_of_variables))
         self.string_variables = ["x" + str(i) for i in range(number_of_variables)]
-        self.f = sp.sympify(function_string)
+
+
 
     def diff(self, variable):
         return self.f.diff(self.sp_variables[self.string_variables.index(variable)])
 
+    def get_n(self):
+        return self.n
     """
         [("x0", 1), ("x1", 2)] ->  [(x0, 1), (x1, 2)]
         where x1 x2 is sp.symbols

@@ -21,7 +21,7 @@ def grad_down_metric(n: int, string_func: str,
     :param eps: eps in gradient method
     :return: point where function go min
     """
-    f = Func(2, string_func)
+    f = Func(n, string_func)
     # именно столько скобок [[]]
     # todo move x in args
 
@@ -36,7 +36,8 @@ def grad_down_metric(n: int, string_func: str,
         y = x - alpha * f.grad(to_args(x, n))
         if f.eval(to_args(y, n)) < f.eval(to_args(x, n)):
             x = y
-        alpha = function_alpha(alpha)
+        alpha = function_alpha(f)
+        print(f"{alpha = }")
         # print(f.metric_of_gradient_in_point(to_args(x)), x, y)
     return x
 
@@ -73,6 +74,7 @@ def grad_down_metric_between_difference(n, string_func,
             x = y
             # alpha = const in 1st task
             # alpha = alpha / 2
-        alpha = function_alpha(alpha)
+        alpha = function_alpha(f, alpha=alpha)
+
         # print(f.metric_of_gradient_in_point(to_args(x)), x, y)
     return x
