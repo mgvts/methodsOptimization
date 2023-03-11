@@ -1,10 +1,6 @@
-import random
-
-import sympy as sp
-
 from lab1.tools import *
 
-eps = 0.01
+eps = 0.0001
 alpha = 0.001
 
 
@@ -12,8 +8,9 @@ def grad_down_metric(n, string_func):
     f = Func(2, string_func)
     # именно столько скобок [[]]
     # todo move x in args
-    x = sp.Matrix([[random.randint(-10, 10) for i in range(n)]])
+    x = sp.Matrix([[randint(-10, 10) for i in range(n)]])
     print(x)
+
     # x = sp.Matrix([[-10, 0]])
 
     def to_args(t):
@@ -32,12 +29,14 @@ def grad_down_metric(n, string_func):
         # print(f.metric_of_gradient_in_point(to_args(x)), x, y)
     return x
 
+
 def grad_down_metric_between_difference(n, string_func):
-    f = Func(2, string_func)
+    f = Func(n, string_func)
     # именно столько скобок [[]]
     # todo move x in args
-    x = sp.Matrix([[random.randint(-10, 10) for i in range(n)]])
+    x = sp.Matrix([[randint(-10, 10) for i in range(n)]])
     print(x)
+
     # x = sp.Matrix([[-10, 0]])
 
     def to_args(t):
@@ -46,8 +45,8 @@ def grad_down_metric_between_difference(n, string_func):
     while True:
         # ||∇f(x)|| < ε
         y = x - alpha * f.grad(to_args(x))
-
-        if get_metric2(f.grad(y) - f.grad(x)) < eps:
+        print(x, y)
+        if get_metric2(f.grad(to_args(y)) - f.grad(to_args(x))) < eps:
             break
 
         if f.eval(to_args(y)) < f.eval(to_args(x)):

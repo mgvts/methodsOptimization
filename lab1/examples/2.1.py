@@ -11,7 +11,7 @@ def calc_min_iterations():
 
 # a b esp delta то параметры
 # тут просто одноммерный поиск (тернарный поиск)
-stringFunc = "x0^2 + 2*x0 + 1"
+stringFunc = "x0^2 + 2*x0^2 + 1"
 f = Func(1, stringFunc)
 a = -10
 b = 10

@@ -1,5 +1,5 @@
 from decimal import Decimal
-from random import randint, random, uniform
+from random import randint, uniform
 
 import numpy as np
 import sympy as sp
