@@ -4,18 +4,15 @@ import random
 
 import sympy as sp
 
-from lab1.grad import grad_down_metric_between_difference, grad_down_metric
+from lab1.grad import grad_down_metric
 from lab1.tools import Func, to_args
 
 
 # lambda_k=min_{\lambda} (\,f(x^{[k]}-\lambda\nabla f(x^{[k]}))
 # findMin ищет лямбду на которую надо умножить градиент
-def findMin(f: Func, eps=0.001, delta=0.00015):
+def dichotomy(f, eps=0.001, delta=0.00015):
     def calc_min_iterations():
         return sp.log((b - a - delta) / (2 * eps - delta), 2)
-
-    if f.get_n() != 1:
-        raise AssertionError("метод дихотомии применим только для функции от одной переменной")
 
     a = 0
     b = 1
@@ -29,7 +26,7 @@ def findMin(f: Func, eps=0.001, delta=0.00015):
         x2 = (a + b + delta) / 2
 
         # 2 step
-        if f.eval([('x0', x1)]) <= f.eval([('x0', x2)]):
+        if f(x1) <= f(x2):
             b = x2
         else:
             a = x1
@@ -41,7 +38,13 @@ def findMin(f: Func, eps=0.001, delta=0.00015):
     return (a + b) / 2
 
 
-# f = Func(2, stringFunc)
+n = 2
+string_func = "x0^2 + x1^2 - 10"
+f = Func(n, string_func)
+x = sp.Matrix([[random.randint(-10, 10) for i in range(n)]])
+x = sp.Matrix([[-10, 0]])
+a = dichotomy(lambda a: f.eval(to_args(x - a * f.grad(to_args(x, n)), n)))
+print(a)
 # eps = 0.0001
 # alpha = 0.001
 # x = sp.Matrix([[random.randint(0, 10) for _ in range(n)]])
@@ -63,11 +66,10 @@ def findMin(f: Func, eps=0.001, delta=0.00015):
 # print(x)
 
 
-n = 1
-stringFunc = "x0^2 - 10"
 
-# если x = Matrix([[-10, 0]]) , то бесконечный цикл
-start_point = sp.Matrix([[random.randint(-10, 10) for i in range(n)]])
-print(x := grad_down_metric(n, stringFunc,
-                            start_point, findMin))
-print(Func(n, stringFunc).eval(to_args(x, n)))
+#
+# # если x = Matrix([[-10, 0]]) , то бесконечный цикл
+# start_point = sp.Matrix([[random.randint(-10, 10) for i in range(n)]])
+# print(x := grad_down_metric(n, stringFunc,
+#                             start_point, findMin))
+# print(Func(n, stringFunc).eval(to_args(x, n)))
