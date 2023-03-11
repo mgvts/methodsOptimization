@@ -18,14 +18,15 @@ class Func:
         self.n = number_of_variables
         self.sp_variables = sp.symbols("x:" + str(number_of_variables))
         self.string_variables = ["x" + str(i) for i in range(number_of_variables)]
-
-
+        self.v = list(sp.ordered(self.f.free_symbols))
+        self.g = self._grad()
 
     def diff(self, variable):
         return self.f.diff(self.sp_variables[self.string_variables.index(variable)])
 
     def get_n(self):
         return self.n
+
     """
         [("x0", 1), ("x1", 2)] ->  [(x0, 1), (x1, 2)]
         where x1 x2 is sp.symbols
@@ -51,9 +52,16 @@ class Func:
         # [("x0", 1), ("x1", 2)]
         :return: vector of meaning grad in point
         """
-        v = list(sp.ordered(self.f.free_symbols))
+        return self.g.subs(self._parse_arguments(variable_value))
+
+    def _grad(self):
+        """
+        :param variable_value: point where we calculating function
+        # [("x0", 1), ("x1", 2)]
+        :return: vector of meaning grad in point
+        """
         gradient = lambda ff, v: sp.Matrix([ff]).jacobian(v)
-        g = gradient(self.f, v).subs(self._parse_arguments(variable_value))
+        g = gradient(self.f, self.v)
         return g
 
     def metric_of_gradient_in_point(self, variable_value) -> float:
@@ -62,11 +70,8 @@ class Func:
         # [("x0", 1), ("x1", 2)]
         :return: ||∇f(x)||
         """
-        v = list(sp.ordered(self.f.free_symbols))
-        gradient = lambda ff, vv: sp.Matrix([ff]).jacobian(vv)
-        g = gradient(self.f, v).subs(self._parse_arguments(variable_value))
         res = 0
-        for i in g:
+        for i in self.grad(variable_value):
             res += i * i
         return sp.sqrt(res).evalf()
 

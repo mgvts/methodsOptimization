@@ -74,7 +74,7 @@ def grad_down_metric_between_difference(n, string_func,
             x = y
             # alpha = const in 1st task
             # alpha = alpha / 2
-        alpha = function_alpha(f, alpha=alpha)
+        alpha = function_alpha(f)
 
         # print(f.metric_of_gradient_in_point(to_args(x)), x, y)
     return x
