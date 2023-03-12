@@ -11,7 +11,7 @@ stringFunc = "x0^2 + x1^2 - 10"
 start_point = sp.Matrix([[randint(-10, 10) for i in range(n)]])
 # max_inter прервёт выполнение алгоритма, после стольких итераций. was_broken -> True
 
-print(x1 := grad_down(n, stringFunc, start_point, alpha=0.01, max_inter=20))
+print(x1 := grad_down(n, stringFunc, start_point, alpha=0.01, max_inter=1000))
 print(x2 := grad_down_dichotomy(n, stringFunc, start_point))
 
 print('Кол-во итераций/Точки grad_down', len(x1.points), x1.points)
