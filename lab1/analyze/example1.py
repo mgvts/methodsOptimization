@@ -14,8 +14,8 @@ start_point = sp.Matrix([[randint(-10, 10) for i in range(n)]])
 print(x1 := grad_down(n, stringFunc, start_point, alpha=0.01, max_inter=20))
 print(x2 := grad_down_dichotomy(n, stringFunc, start_point))
 
-print('Точки grad_down', len(x1.points), x1.points)
-print('Точки grad_down_dichotomy', len(x2.points), x2.points)
+print('Кол-во итераций/Точки grad_down', len(x1.points), x1.points)
+print('Кол-во итераций/Точки grad_down_dichotomy', len(x2.points), x2.points)
 print('Альфа grad_down_dichotomy', len(x2.alpha), x2.alpha)
 
 

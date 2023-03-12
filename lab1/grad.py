@@ -53,7 +53,6 @@ def grad_down(n: int, string_func: str,
     )
 
     while True:
-        alpha = dichotomy(lambda a: f.eval(to_args(x - a * f.grad(to_args(x, n)).evalf(), n)))
         y = x - alpha * f.grad(to_args(x, n))
         metr = get_metric2(f.grad(to_args(y, n)) - f.grad(to_args(x, n)))
 

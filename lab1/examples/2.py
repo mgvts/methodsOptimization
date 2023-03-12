@@ -8,3 +8,5 @@ n = 2
 stringFunc = "x0^2 + x1^2 - 10"
 
 start_point = sp.Matrix([[randint(-10, 10) for i in range(n)]])
+print(x := grad_down_dichotomy(n, stringFunc, start_point))
+print('Найденная точка:', x.points[-1])
