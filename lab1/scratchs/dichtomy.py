@@ -4,7 +4,7 @@ import random
 
 import sympy as sp
 
-from lab1.grad import grad_down_metric
+from lab1.grad import grad_down
 from lab1.tools import Func, to_args
 
 
@@ -19,6 +19,7 @@ def dichotomy(f, eps=0.001, delta=0.00015):
     N = math.ceil(calc_min_iterations())
     x1 = (a + b - delta) / 2
     x2 = (a + b + delta) / 2
+    print(N, f(1))
     for i in range(N):
         # print(f"{x1 = } {x2 = } {f.eval([('x0', x1)]) = } {f.eval([('x0', x2)]) = }")
         # 1 step
@@ -35,16 +36,22 @@ def dichotomy(f, eps=0.001, delta=0.00015):
         eps_i = (b - a) / 2
         if eps_i <= eps:
             break
+    print('finish', a, b)
     return (a + b) / 2
 
 
 n = 2
-string_func = "x0^2 + x1^2 - 10"
+string_func = "x0^2 + (x1 - 10)^2 - 10"
 f = Func(n, string_func)
 x = sp.Matrix([[random.randint(-10, 10) for i in range(n)]])
-x = sp.Matrix([[-10, 0]])
-a = dichotomy(lambda a: f.eval(to_args(x - a * f.grad(to_args(x, n)), n)))
-print(a)
+
+t = grad_down(
+    n, string_func, x, dichotomy
+)
+print(t)
+# x = sp.Matrix([[-10, 0]])
+# a = dichotomy(lambda a: f.eval(to_args(x - a * f.grad(to_args(x, n)), n)))
+# print(a)
 # eps = 0.0001
 # alpha = 0.001
 # x = sp.Matrix([[random.randint(0, 10) for _ in range(n)]])

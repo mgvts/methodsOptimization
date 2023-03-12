@@ -1,6 +1,6 @@
 import unittest
 
-from lab1.grad import grad_down_metric
+from lab1.grad import grad_down
 from lab1.tools import Func
 
 # func, point, ans
@@ -39,7 +39,7 @@ class TestRandomGradient(unittest.TestCase):
     # долго
     def test_readable_grad(self):
         for n, s, a in tests_s:
-            y = list(grad_down_metric(n, s))
+            y = list(grad_down(n, s))
             print(s, y)
             for i in range(n):
                 self.assertLess(abs(a[i] - y[i]), 0.5)
