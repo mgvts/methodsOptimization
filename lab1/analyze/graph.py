@@ -6,7 +6,8 @@ from sympy.plotting.plot import MatplotlibBackend, Plot
 
 from lab1.grad import grad_down_dichotomy
 from lab1.tools import Func
-
+import matplotlib as mpl
+mpl.use('TkAgg')
 
 def get_sympy_subplots(plot: Plot):
     backend = MatplotlibBackend(plot)
