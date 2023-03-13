@@ -55,11 +55,6 @@ class Func:
         return self.g.subs(self._parse_arguments(variable_value))
 
     def _grad(self):
-        """
-        :param variable_value: point where we calculating function
-        # [("x0", 1), ("x1", 2)]
-        :return: vector of meaning grad in point
-        """
         gradient = lambda ff, v: sp.Matrix([ff]).jacobian(v)
         g = gradient(self.f, self.v)
         return g
@@ -107,6 +102,9 @@ class QFunc:
 
     def __str__(self):
         return str(self.f)
+
+    def get_A(self):
+        return self.A
 
     def cond(self):
         lambdas = self.get_lamdas()
