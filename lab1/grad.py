@@ -16,6 +16,7 @@ class OutputDTO:
     string_func: str
     n: int
     was_broken: bool
+    iter: int
 
 
 eps_CONST = 0.0001
@@ -41,7 +42,6 @@ def grad_down(n: int, string_func: str,
     """
     f = Func(n, string_func)
     x = start_point
-
     out = OutputDTO(
         points=[],
         alpha=[],
@@ -49,7 +49,8 @@ def grad_down(n: int, string_func: str,
         n=n,
         was_broken=False,
         eps=eps,
-        metrics=[]
+        metrics=[],
+        iter=0
     )
 
     while True:
@@ -59,6 +60,7 @@ def grad_down(n: int, string_func: str,
         out.points.append(x)
         out.alpha.append(alpha)
         out.metrics.append(metr)
+        out.iter += 1
 
         # ||∇f(x)|| < ε
         if metr < eps:
@@ -123,7 +125,8 @@ def grad_down_dichotomy(n: int, string_func: str,
         n=n,
         was_broken=False,
         eps=eps,
-        metrics=[]
+        metrics=[],
+        iter=0
     )
 
     while True:
@@ -134,6 +137,8 @@ def grad_down_dichotomy(n: int, string_func: str,
         out.points.append(x)
         out.alpha.append(alpha)
         out.metrics.append(metr)
+        out.iter += 1
+
 
         # ||∇f(x)|| < ε
         if metr < eps:

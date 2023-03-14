@@ -84,15 +84,15 @@ f = func.f
 func2 = Func(n, stringFunc)
 f2 = func2.f
 x, y = symbols('x0, x1')
-start_point = sp.Matrix([[-1000 for i in range(n)]])
+start_point = sp.Matrix([[-10 for i in range(n)]])
 
 x_range = [-10, 10]
 y_range = [-10, 10]
 
-p = plot_implicit(f, show=False, points=10, x_var=(x, *x_range), y_var=(y, *y_range))
+p = plot_implicit(f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range))
 plt1 = get_sympy_subplots(p)
 
-x2 = grad_down_dichotomy(n, stringFunc, start_point, max_inter=10)
+x2 = grad_down_dichotomy(n, stringFunc, start_point, max_inter=5)
 out_from_const = x2
 for i in range(1, len(x2.points)):
     x1, y1 = [x2.points[i - 1][0], x2.points[i][0]], [x2.points[i - 1][1], x2.points[i][1]]
@@ -103,9 +103,9 @@ for i in range(1, len(x2.points)):
         # small dist -> not line, point
         pass
 
-p2 = plot_implicit(f2, show=False, points=10, x_var=(x, -10, 10), y_var=(y, -10, 10))
+p2 = plot_implicit(f2, show=False, points=300, x_var=(x, -10, 10), y_var=(y, -10, 10))
 plt2 = get_sympy_subplots(p2)
-x2 = grad_down(n, stringFunc, start_point, max_inter=10, alpha=0.3)
+x2 = grad_down(n, stringFunc, start_point, max_inter=5, alpha=0.3)
 out_from_dichotomy = x2
 for i in range(1, len(x2.points)):
     x1, y1 = [x2.points[i - 1][0], x2.points[i][0]], [x2.points[i - 1][1], x2.points[i][1]]
