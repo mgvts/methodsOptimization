@@ -9,7 +9,8 @@ from lab1.tools import Func, get_metric2, to_args
 @dataclass
 class OutputDTO:
     points: list[
-        sp.Matrix]  # todo возможно понадобиться заменить на list[float], для возможности сохранять эти результаты в json
+        sp.Matrix]
+    points_with_floats: list[list[float]]
     alpha: list[float]
     eps: float
     metrics: list[float]
@@ -44,6 +45,7 @@ def grad_down(n: int, string_func: str,
     x = start_point
     out = OutputDTO(
         points=[],
+        points_with_floats=[],
         alpha=[],
         string_func=string_func,
         n=n,
@@ -58,6 +60,7 @@ def grad_down(n: int, string_func: str,
         metr = get_metric2(f.grad(to_args(y, n)) - f.grad(to_args(x, n)))
 
         out.points.append(x)
+        out.points_with_floats.append(x.values())
         out.alpha.append(alpha)
         out.metrics.append(metr)
         out.iter += 1
@@ -120,6 +123,7 @@ def grad_down_dichotomy(n: int, string_func: str,
 
     out = OutputDTO(
         points=[],
+        points_with_floats=[],
         alpha=[],
         string_func=string_func,
         n=n,
@@ -135,10 +139,10 @@ def grad_down_dichotomy(n: int, string_func: str,
         metr = get_metric2(f.grad(to_args(y, n)) - f.grad(to_args(x, n)))
 
         out.points.append(x)
+        out.points_with_floats.append(x.values())
         out.alpha.append(alpha)
         out.metrics.append(metr)
         out.iter += 1
-
 
         # ||∇f(x)|| < ε
         if metr < eps:
