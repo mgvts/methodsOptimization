@@ -50,7 +50,7 @@ for i in range(0, round(x_len / step)):
                 'xy': (_x[0], _y[0]),
                 'width': step,
                 'height': step,
-                'color': '#' + str(rgba_to_hex((z, z, z))),
+                'color': '#' + str(rgba_to_hex((z, z, z))) + "82",
                 'ec': None
             }
         )
