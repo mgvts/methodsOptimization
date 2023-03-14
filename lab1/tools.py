@@ -65,10 +65,7 @@ class Func:
         # [("x0", 1), ("x1", 2)]
         :return: ||∇f(x)||
         """
-        res = 0
-        for i in self.grad(variable_value):
-            res += i * i
-        return sp.sqrt(res).evalf()
+        return get_metric2(self.grad(variable_value))
 
     def __str__(self):
         return str(self.f)
