@@ -105,10 +105,10 @@ class QFunc:
 
     def cond(self):
         lambdas = self.get_lamdas()
-        print(f"{lambdas = }")
-        L = max([i for i in lambdas])
-        l = min([i for i in lambdas])
-        print(f"{L = } {l = }")
+        # print(f"{lambdas = }")
+        L = max(lambdas)
+        l = min(lambdas)
+        # print(f"{L = } {l = }")
         return L / l
 
     """
@@ -154,6 +154,11 @@ def generate_quadratic_func(n: int, k: float) -> QFunc:
     #   нужно сгенерировтаь ортоганальную матрицу
     C = sp.Matrix(np.random.randint(0, 50, (n, n)))
     Q, R = C.QRdecomposition()
+    # print("q")
+    # print(Q)
+    # print("a")
+    # print(A)
+
     B = Q * A * Q.transpose()
 
     return QFunc(n, B, sp.Matrix([0 for _ in range(n)]), 5)
