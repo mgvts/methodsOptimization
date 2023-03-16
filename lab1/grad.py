@@ -22,7 +22,7 @@ class OutputDTO:
 
 eps_CONST = 0.0001
 alpha_CONST = 0.001
-max_INTER = 1000000
+max_INTER = 1000
 
 
 # todo можно обьединить grad_down() и grad_down_dichotomy()
@@ -78,12 +78,10 @@ def grad_down(n: int, string_func: str,
     return out
 
 
-def dichotomy(f, eps=0.001, delta=0.00015):
+def dichotomy(f, eps=0.001, delta=0.00015, a=0, b=1):
     def calc_min_iterations():
         return sp.log((b - a - delta) / (2 * eps - delta), 2)
 
-    a = 0
-    b = 1
     N = math.ceil(calc_min_iterations())
     x1 = (a + b - delta) / 2
     x2 = (a + b + delta) / 2
@@ -156,6 +154,7 @@ def grad_down_dichotomy(n: int, string_func: str,
     return out
 
 
+# todo now used only in 1.py but actually need replace to grad_down
 def grad_down_between_difference(n, string_func,
                                  start_point: sp.Matrix,
                                  eps=eps_CONST,
@@ -185,3 +184,16 @@ def grad_down_between_difference(n, string_func,
         if f.eval(to_args(y, n)) < f.eval(to_args(x, n)):
             x = y
     return x
+
+
+# todo
+def line_search_with_wolfe(n: int, f: Func,
+                           p: sp.Matrix,
+                           start_point: sp.Matrix,
+                           c1=0.001, c2=0.99,
+                           max_iter=max_INTER):
+    alpha = 1
+    while True:
+        # Check Wolfe condition 1
+        if f.eval(to_args(start_point + alpha * p, n)) >= c1 * alpha * p * f.grad(start_point) * p:
+            return
