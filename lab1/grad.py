@@ -21,7 +21,7 @@ class OutputDTO:
 
 
 eps_CONST = 0.0001
-alpha_CONST = 0.001
+alpha_CONST = 0.1
 max_INTER = 1000
 
 
