@@ -4,6 +4,7 @@ from random import randint, uniform
 import numpy as np
 import sympy as sp
 
+INF = 1_000_000
 
 class Func:
     """
@@ -44,6 +45,8 @@ class Func:
     #     return [i for i in re.split(regex_pattern, s) if i != ""]
 
     def eval(self, variable_value):
+        if type(variable_value) == sp.Matrix:
+            self.f.subs(self._parse_arguments(to_args(variable_value, self.n)))
         return self.f.subs(self._parse_arguments(variable_value))
 
     def grad(self, variable_value) -> sp.Matrix:
@@ -152,7 +155,8 @@ def generate_quadratic_func(n: int, k: float) -> QFunc:
     #   Q - ортоганальная матрица -> Q^(-1) = Q^(T)
     #   тогда B = Q * A * Q^(T)
     #   нужно сгенерировтаь ортоганальную матрицу
-    C = sp.Matrix(np.random.randint(0, 50, (n, n)))
+    # Note важно тк монла получиться матрица из 0 и это хуйня
+    C = sp.Matrix(np.random.randint(1, INF, (n, n)))
     Q, R = C.QRdecomposition()
     # print("q")
     # print(Q)

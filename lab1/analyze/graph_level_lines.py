@@ -19,7 +19,8 @@ def make_data():
     # wow watafuck
     z = sp.lambdify(func.sp_variables, func.f, 'numpy')
 
-    return xgrid, ygrid, z
+
+    return xgrid, ygrid, z(xgrid, ygrid)
 
 
 if __name__ == '__main__':

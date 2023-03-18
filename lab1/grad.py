@@ -186,14 +186,78 @@ def grad_down_between_difference(n, string_func,
     return x
 
 
+def parse_eval(f: Func):
+    return lambda x: f.eval(to_args(x, f.get_n()))
+
+
+def wolfe_conditions(f: Func, x: sp.Matrix, alpha: float, c1=0.01, c2=0.99):
+    fx = parse_eval(f)(x)
+    grad_fx = f.grad(to_args(x, f.get_n()))
+    p = f.grad(to_args(x, f.get_n()))
+    fx_alpha = parse_eval(f)(x - alpha * p)
+    grad_fx_alpha = f.grad(to_args(x - alpha * p, f.get_n()))
+    cond1 = fx_alpha <= fx + c1 * alpha * (grad_fx * p.transpose())[0]
+    cond2 = (grad_fx_alpha * p.transpose())[0] >= c2 * (grad_fx_alpha * p.transpose())[0]
+
+    return cond1 and cond2
+
+
 # todo
-def line_search_with_wolfe(n: int, f: Func,
-                           p: sp.Matrix,
+def find_alpha_with_wolfe(f: Func,
                            start_point: sp.Matrix,
-                           c1=0.001, c2=0.99,
-                           max_iter=max_INTER):
+                           c1=0.001, c2=0.99):
     alpha = 1
+    while not wolfe_conditions(f, start_point, alpha, c1=c1, c2=c2):
+        alpha *= 0.5
+    return alpha
+
+def grad_down_wolfe(n: int, string_func: str,
+                        start_point: sp.Matrix,
+                        eps=eps_CONST,
+                        max_inter=max_INTER) -> OutputDTO:
+    """
+    :param max_inter: max interaction should be run
+    :param n: how many variables in function
+    :param string_func: string of Function
+    :param start_point: Start point like sp.Matrix([[1,1]])
+    :param function_alpha: function to changed  alpha
+    :param eps: eps in gradient method
+    :return: OutputDTO, dataclass for analyze
+    """
+    f = Func(n, string_func)
+    x = start_point
+
+    out = OutputDTO(
+        points=[],
+        points_with_floats=[],
+        alpha=[],
+        string_func=string_func,
+        n=n,
+        was_broken=False,
+        eps=eps,
+        metrics=[],
+        iter=0
+    )
+
     while True:
-        # Check Wolfe condition 1
-        if f.eval(to_args(start_point + alpha * p, n)) >= c1 * alpha * p * f.grad(start_point) * p:
-            return
+        alpha = find_alpha_with_wolfe(f, x)
+        # alpha = dichotomy(lambda a: f.eval(to_args(x - a * f.grad(to_args(x, n)).evalf(), n)))
+        y = x - alpha * f.grad(to_args(x, n))
+        metr = get_metric2(f.grad(to_args(y, n)) - f.grad(to_args(x, n)))
+
+        out.points.append(x)
+        out.points_with_floats.append(x.values())
+        out.alpha.append(alpha)
+        out.metrics.append(metr)
+        out.iter += 1
+
+        # ||∇f(x)|| < ε
+        if metr < eps:
+            break
+
+        if f.eval(to_args(y, n)) < f.eval(to_args(x, n)):
+            x = y
+        if len(out.points) > max_inter:
+            out.was_broken = True
+            return out
+    return out
