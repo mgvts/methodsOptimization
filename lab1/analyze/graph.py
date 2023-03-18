@@ -6,7 +6,7 @@ import sympy as sp
 from sympy import plot_implicit, symbols
 from sympy.plotting.plot import MatplotlibBackend, Plot
 
-from lab1.grad import grad_down_dichotomy, grad_down
+from lab1.grad import grad_down_dichotomy, grad_down, grad_down_wolfe
 from lab1.tools import Func, get_metric2
 
 mpl.use('TkAgg')
@@ -98,6 +98,8 @@ f = func.f
 func2 = Func(n, stringFunc)
 f2 = func2.f
 x, y = symbols('x0, x1')
+func3 = Func(n,stringFunc)
+f3 = func3.f
 
 
 x_range = [-20, 20]
@@ -134,8 +136,26 @@ for p in start_points:
         except IndexError:
             # small dist -> not line, point
             pass
-    # analize(start_point, out_from_const, out_from_dichotomy)
+
+
+p3 = plot_implicit(f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range))
+plt3 = get_sympy_subplots(p3)
+
+for p in start_points:
+    start_point = sp.Matrix([[p[0], p[1]]])
+    x3 = grad_down_wolfe(n, stringFunc, start_point, max_inter=5)
+    out_from_const = x3
+    for i in range(1, len(x3.points)):
+        x1, y1 = [x3.points[i - 1][0], x3.points[i][0]], [x3.points[i - 1][1], x3.points[i][1]]
+        line = plt1.gca().plot(x1, y1, marker='o', ms=1, color=p[2])
+        try:
+            add_arrow(line[0], size=12)
+        except IndexError:
+            # small dist -> not line, point
+            pass
 
 plt1.show()
 plt2.show()
+plt3.show()
+
 
