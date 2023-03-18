@@ -17,15 +17,15 @@ from lab1.tools import Func
 
 mpl.use('TkAgg')
 
-max_inter = 400
-stringFunc = "10*x0^2 + (x1)^2"
+max_inter = 1000
+stringFunc = "x0^2 + (x1)^2"
 n = 2
 func = Func(n, stringFunc)
 f = func.f
 
 x_range = [-20, 20]
 y_range = [-20, 20]
-step = 4
+step = 5
 
 x0, x1 = symbols('x0 x1')
 

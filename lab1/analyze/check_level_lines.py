@@ -3,13 +3,14 @@ import sympy as sp
 from lab1.grad import grad_down, grad_down_dichotomy
 
 n = 2
-stringFunc = "10*x0^2 + x1^2"
+c = 1
+stringFunc = f"{c}*x0^2 + x1^2"
 
-level = 30
+level = 10000
 
-step = 0.1
-x_min = -(level / 10) ** 0.5
-x_max = (level / 10) ** 0.5
+step = 12
+x_min = -(level / c) ** 0.5
+x_max = (level / c) ** 0.5
 
 a = x_max
 b = level ** 0.5
@@ -18,10 +19,10 @@ print(x_min, x_max)
 meth_g = []
 meth_d = []
 
-for i in range(0, int((x_max - x_min) / step)):
+for i in range(1, int((x_max - x_min) / step)):
     x0 = x_min + step * i
-    x11 = (level - 10 * x0 ** 2) ** 0.5
-    x12 = -((level - 10 * x0 ** 2) ** 0.5)
+    x11 = (level - c * x0 ** 2) ** 0.5
+    x12 = -((level - c * x0 ** 2) ** 0.5)
 
     # x**2/a**2 + y**2/b**2 = 1 свойство эллипса
     print(x0, x11, x0 ** 2 / a ** 2 + x11 ** 2 / b ** 2)
@@ -37,20 +38,11 @@ for i in range(0, int((x_max - x_min) / step)):
 
     print(set(meth_d), set(meth_g))
 
-# print(x1 := grad_down(n, stringFunc, start_point, alpha=0.01, max_inter=1000))
-# print(x2 := grad_down_dichotomy(n, stringFunc, start_point))
-#
-# print('Кол-во итераций/Точки grad_down', len(x1.points), x1.points)
-# print('Кол-во итераций/Точки grad_down_dichotomy', len(x2.points), x2.points)
-# print('Альфа grad_down_dichotomy', len(x2.alpha), x2.alpha)
-#
-#
-# print('Найденная точка grad_down', x1.points[-1])
-# print('Найденная точка grad_down_dichotomy', x2.points[-1])
-#
-# print()
-# print('Данные от запуска grad_down')
-# print('Eps: ', x1.eps)
-# print('Metrics: ', x1.metrics)
-# print('String Func: ', x1.string_func)
-# print('String N: ', x1.n)
+# RESULTS :
+# circle
+# c = 1, step = 0.1, level = 40 | {3}, {389}
+# c = 1, step = 2, level = 100 | {3}, {412}
+# c = 1, step = 4, level = 900 | {3}, {466}
+# c = 1, step = 8, level = 1900 | {3}, {485}
+# c = 1, step = 8, level = 1900 | {3}, {485}
+# c = 1, step = 12, level = 10000 | {4}, {526}
