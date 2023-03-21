@@ -75,6 +75,12 @@ def grad_down(n: int, string_func: str,
         if len(out.points) > max_inter:
             out.was_broken = True
             return out
+
+        if len(out.points) > 10:
+             if out.points[-1] == out.points[-2]:
+                out.was_broken = True
+                return out
+
     return out
 
 
