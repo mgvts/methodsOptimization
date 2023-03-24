@@ -22,7 +22,7 @@ class OutputDTO:
 
 eps_CONST = 0.0001
 alpha_CONST = 0.1
-max_INTER = 1000
+max_INTER = 100
 
 
 # todo можно обьединить grad_down() и grad_down_dichotomy()

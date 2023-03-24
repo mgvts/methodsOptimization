@@ -91,6 +91,7 @@ class QFunc:
         self.list_variables = sp.symbols("x:" + str(n))
         self.v = sp.Matrix(list(sp.ordered(self.list_variables)))
         self._createFunc(n, self.A, b, c)
+        self.numpy_f = sp.lambdify(self.f.free_symbols, self.f, 'numpy')
 
     def _createFunc(self, n, A, b, c):
         self.f = sp.sympify(0)
@@ -113,6 +114,40 @@ class QFunc:
         L = max(lambdas)
         l = min(lambdas)
         # print(f"{L = } {l = }")
+        return L / l
+
+    """
+        :return list of tuples [(lambda, gamma(lambda)]
+        gamma(lambda) its power in det(A - tE)
+    """
+
+    def get_lamdas(self):
+        return list(dict(self.A.eigenvals()).keys())
+
+
+class FastQFunc:
+    """
+        Quadratic function with numpy
+    """
+
+    def __init__(self, n, A: np.matrix, b: np.Matrix, c):
+        sp.init_printing(use_unicode=True)
+        self.A = A
+        self.b = b
+        self.c = c
+        # self.f = A*x*x + bx + c
+        # self.grad = Ax + b
+
+    def grad_in_point(self, point: np.Matrix):
+        return np.dot(self.A, point) + self.b
+
+    def eval(self, point: np.Matrix):
+        return np.dot(np.matmul(self.A, point), point) + np.dot(self.b, point) + self.c
+
+    def cond(self):
+        lambdas = self.get_lamdas()
+        L = max(lambdas)
+        l = min(lambdas)
         return L / l
 
     """
