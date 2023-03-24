@@ -4,9 +4,12 @@ from lab1.tools import fast_generate_quadratic_func, FastQFunc
 
 from lab1.fast_grad import grad_down, grad_down_dichotomy, grad_down_wolfe
 
-# f = fast_generate_quadratic_func(2, 10)
-f = FastQFunc(2, np.matrix([[2, 0],
-                            [0, 2]]), np.matrix([5, 0]), 0)
-x = grad_down_wolfe(f, [10.0, 10.0])
+from random import uniform, randint
 
-# print(f.eval(np.matrix([2 , 2]).transpose()))
+# f = fast_generate_quadratic_func(2, 10)
+k = 100
+f = fast_generate_quadratic_func(2, k)
+x = grad_down(f, [randint(-10, 10) for i in range(2)], alpha=1/(100 * k))
+
+print(len(x.points), x.was_broken)
+print(x.points[-1])

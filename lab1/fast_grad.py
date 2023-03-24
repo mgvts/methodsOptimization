@@ -18,9 +18,9 @@ class OutputDTO:
     dichotomy_count: list[int]
 
 
-eps_CONST = 0.000001
-alpha_CONST = 0.1
-max_INTER = 1000
+eps_CONST = 0.0001
+alpha_CONST = 0.02
+max_INTER = 30000
 
 
 # todo можно обьединить grad_down() и grad_down_dichotomy()
@@ -76,12 +76,9 @@ def grad_down(func: FastQFunc,
             return out
 
         if len(out.points) > 10:
-            pass
-
-
-            # if out.points[-1] == out.points[-2]:
-            #     out.was_broken = True
-            #     return out
+            if out.points[-1] == out.points[-2]:
+                out.was_broken = True
+                return out
 
     return out
 
@@ -160,6 +157,11 @@ def grad_down_dichotomy(func: FastQFunc,
         if len(out.points) > max_inter:
             out.was_broken = True
             return out
+
+        if len(out.points) > 10:
+            if out.points[-1] == out.points[-2]:
+                out.was_broken = True
+                return out
     return out
 
 
@@ -236,4 +238,9 @@ def grad_down_wolfe(func: FastQFunc,
         if len(out.points) > max_inter:
             out.was_broken = True
             return out
+
+        if len(out.points) > 10:
+            if out.points[-1] == out.points[-2]:
+                out.was_broken = True
+                return out
     return out

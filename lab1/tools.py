@@ -4,7 +4,7 @@ from random import randint, uniform
 import numpy as np
 import sympy as sp
 
-INF = 1_000_000
+INF = 1_000
 
 
 class Func:
@@ -143,7 +143,7 @@ class FastQFunc:
         return np.dot(self.A, point) + self.b
 
     def eval(self, point: np.matrix):
-        return 1/2 * np.dot(np.dot(self.A, point).transpose(), point) + np.dot(self.b.transpose(), point) + self.c
+        return 1 / 2 * np.dot(np.dot(self.A, point).transpose(), point) + np.dot(self.b.transpose(), point) + self.c
 
     def cond(self):
         lambdas = self.get_lamdas()
@@ -250,6 +250,7 @@ def get_metric2(x: sp.Matrix):
     for i in x:
         res += i * i
     return sp.sqrt(res).evalf()
+
 
 def get_metric3(x: np.matrix):
     res = 0
