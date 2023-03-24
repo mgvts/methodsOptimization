@@ -143,7 +143,7 @@ class FastQFunc:
         return np.dot(self.A, point) + self.b
 
     def eval(self, point: np.matrix):
-        return np.dot(np.matmul(self.A, point).transpose(), point) + np.dot(self.b.transpose(), point) + self.c
+        return 1/2 * np.dot(np.dot(self.A, point).transpose(), point) + np.dot(self.b.transpose(), point) + self.c
 
     def cond(self):
         lambdas = self.get_lamdas()

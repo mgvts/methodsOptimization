@@ -1,5 +1,6 @@
 import math
 from dataclasses import dataclass
+from typing import Optional
 
 import sympy as sp
 
@@ -18,6 +19,7 @@ class OutputDTO:
     n: int
     was_broken: bool
     iter: int
+    dichotomy_count: list[int]
 
 
 eps_CONST = 0.0001
@@ -52,7 +54,8 @@ def grad_down(n: int, string_func: str,
         was_broken=False,
         eps=eps,
         metrics=[],
-        iter=0
+        iter=0,
+        dichotomy_count = []
     )
 
     while True:
@@ -106,7 +109,7 @@ def dichotomy(f, eps=0.001, delta=0.00015, a=0, b=1):
         eps_i = (b - a) / 2
         if eps_i <= eps:
             break
-    return (a + b) / 2
+    return (a + b) / 2, N
 
 
 def grad_down_dichotomy(n: int, string_func: str,
@@ -134,14 +137,16 @@ def grad_down_dichotomy(n: int, string_func: str,
         was_broken=False,
         eps=eps,
         metrics=[],
-        iter=0
+        iter=0,
+        dichotomy_count = []
     )
 
     while True:
-        alpha = dichotomy(lambda a: f.eval(to_args(x - a * f.grad(to_args(x, n)).evalf(), n)))
+        alpha, count = dichotomy(lambda a: f.eval(to_args(x - a * f.grad(to_args(x, n)).evalf(), n)))
         y = x - alpha * f.grad(to_args(x, n))
         metr = get_metric2(f.grad(to_args(y, n)) - f.grad(to_args(x, n)))
 
+        out.dichotomy_count.append(count)
         out.points.append(x)
         out.points_with_floats.append(x.values())
         out.alpha.append(alpha)
@@ -242,7 +247,8 @@ def grad_down_wolfe(n: int, string_func: str,
         was_broken=False,
         eps=eps,
         metrics=[],
-        iter=0
+        iter=0,
+        dichotomy_count = []
     )
 
     while True:

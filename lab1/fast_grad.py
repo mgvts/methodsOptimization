@@ -58,8 +58,8 @@ def grad_down(func: FastQFunc,
 
         metr = get_metric3(func.grad(y) - func.grad(x)) # todo change metric
 
-        out.points.append(x)
-        out.points_with_floats.append(x.transpose().tolist()[0])
+        out.points.append(x.transpose().tolist()[0])
+        out.points_with_floats.append(x)
         out.alpha.append(alpha)
         out.metrics.append(metr)
         out.iter += 1
@@ -220,7 +220,6 @@ def grad_down_wolfe(func: FastQFunc,
         # alpha = dichotomy(lambda a: f.eval(to_args(x - a * f.grad(to_args(x, n)).evalf(), n)))
         y = x - alpha * func.grad(x)
         metr = get_metric3(func.grad(y) - func.grad(x))
-        print(alpha, metr, func.grad(y), func.grad(x))
 
         out.points.append(x.transpose().tolist()[0])
         out.points_with_floats.append(x)
