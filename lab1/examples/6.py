@@ -20,12 +20,15 @@ class OutputDTO:
     wolfe_grag_iter: list[int]
 
 
-def T(n, k):
-    start_point = sp.Matrix([[randint(-10, 10) for _ in range(n)]])
-    f = generate_quadratic_func(n, k)
-    const_grag = grad_down(n, str(f), start_point)
-    dichotomy_grag = grad_down_dichotomy(n, str(f), start_point)
-    wolfe_grad = grad_down_wolfe(n, str(f), start_point)
+def T(n, k, f):
+    const_grag=[]
+    dichotomy_grag=[]
+    wolfe_grad=[]
+    for i in range(5):
+        start_point = sp.Matrix([[randint(-10, 10) for _ in range(n)]])
+        const_grag.append(grad_down(n, str(f), start_point))
+        dichotomy_grag.append(grad_down_dichotomy(n, str(f), start_point))
+        wolfe_grad.append(grad_down_wolfe(n, str(f), start_point))
 
     return [const_grag, dichotomy_grag, wolfe_grad]
 
@@ -55,9 +58,8 @@ def stat(out):
     print("---------------------------------")
 
 
-for n in range(2, 1000, 10):
-    for k in [1, 2, 10, 100]:
-        # for k in range(1, 1000, 10):
+for n in range(2, 1000, 50):
+    for k in range(1, 1000, 50):
         out = OutputDTO(
             n=n,
             k=k,
@@ -70,9 +72,10 @@ for n in range(2, 1000, 10):
         )
         print("waiting", end="")
         st = time()
-        for i in range(10):
+        for i in range(5):
             # try:
             print(".", end="")
+            f = generate_quadratic_func(n, k)
             const_grag, dichotomy_grag, wolfe_grad = T(n, k)
             out.const_grag_was_broken.append(const_grag.was_broken)
             out.const_grag_iter.append(len(const_grag.points))
@@ -85,5 +88,5 @@ for n in range(2, 1000, 10):
             #     pass
         delta = st - time()
         print()
-        # print("\r", end="")
+        print("\r", end="")
         stat(out)
