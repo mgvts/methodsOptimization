@@ -100,7 +100,7 @@ def stat(out):
     print(
         f"dichotomy_grag_was_broken False:{out.dichotomy_grag_was_broken}")
     print(
-        f"dichotomy_grag_was_broken False:{out.wolfe_grag_was_broken}")
+        f"wolfe_grag_was_broken False:{out.wolfe_grag_was_broken}")
 
     const_grag_sr_iter = sum(out.const_grag_iter) / len(out.const_grag_iter) if -1 not in out.const_grag_iter else -1
     dichotomy_grag_sr_iter = sum(out.dichotomy_grag_iter) / len(
@@ -140,7 +140,7 @@ for n in range(2, 1000, 10):
             out.dichotomy_grag_iter.append(dichotomy_grag[0])
             out.dichotomy_grag_was_broken = dichotomy_grag[1]
             out.wolfe_grag_iter.append(wolfe_grad[0])
-            out.wolfe_grag_was_broken = dichotomy_grag[1]
+            out.wolfe_grag_was_broken = wolfe_grad[1]
         delta = st - time()
         print()
         print("\r", end="")
