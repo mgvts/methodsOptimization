@@ -6,6 +6,7 @@ import sympy as sp
 
 INF = 1_000_000
 
+
 class Func:
     """
         variables is [xi for i in range(number_of_variables)]
@@ -123,7 +124,6 @@ class QFunc:
         return list(dict(self.A.eigenvals()).keys())
 
 
-# todo: либо все float, либо Decimal, либо Fraction
 def generate_quadratic_func(n: int, k: float) -> QFunc:
     """
     :param n: Count of vars
@@ -134,7 +134,7 @@ def generate_quadratic_func(n: int, k: float) -> QFunc:
     if k < 1:
         raise AssertionError("k must be >= 1")
     # если n == 1, то mi = ma, и k всегда = 1
-    if n == 1:  # todo, не уверен, что в таком случае нужно
+    if n == 1:
         raise AssertionError("n must be > 1")
 
     # 1. генерируем диагональную матрицу, diag(a_min ... a_max)
@@ -158,14 +158,51 @@ def generate_quadratic_func(n: int, k: float) -> QFunc:
     # Note важно тк монла получиться матрица из 0 и это хуйня
     C = sp.Matrix(np.random.randint(1, INF, (n, n)))
     Q, R = C.QRdecomposition()
-    # print("q")
-    # print(Q)
-    # print("a")
-    # print(A)
 
     B = Q * A * Q.transpose()
 
     return QFunc(n, B, sp.Matrix([0 for _ in range(n)]), 5)
+
+
+def fast_generate_quadratic_func(n: int, k: float) -> QFunc:
+    """
+    :param n: Count of vars
+    :param k: Number of cond
+    :return: Random QFunc
+    """
+
+    if k < 1:
+        raise AssertionError("k must be >= 1")
+    # если n == 1, то mi = ma, и k всегда = 1
+    if n == 1:
+        raise AssertionError("n must be > 1")
+
+    # 1. генерируем диагональную матрицу, diag(a_min ... a_max)
+    # генерируем a_min, a_max
+    if int(k) == 1:
+        a_min = Decimal(1)
+    else:
+        a_min = Decimal(randint(1, int(k) - 1))
+    a_max = Decimal(Decimal(k) * a_min)
+    a_max, a_min = max(a_max, a_min), min(a_max, a_min)
+    v = [float(a_min)] + [uniform(float(a_min), float(a_max)) for _ in range(n - 2)] + [float(a_max)]
+    A = np.diag(v)
+
+    # A - диагональная матрица с числом обусловленности k
+    # A - уже квадратичная форма. в каноническом виде
+    # 2. любая квадратичная форма приводится к каноническому виду, с помощью ортоганального преобразования
+    #   Q^(T) * B * Q = A
+    #   Q - ортоганальная матрица -> Q^(-1) = Q^(T)
+    #   тогда B = Q * A * Q^(T)
+    #   нужно сгенерировтаь ортоганальную матрицу
+    # Note важно тк монла получиться матрица из 0 и это хуйня
+    C = np.matrix(np.random.randint(1, INF, (n, n)))
+    Q, R = np.linalg.qr(C)
+    # Q, R = C.QRdecomposition()
+
+    B = np.matmul(np.matmul(Q, A), Q.transpose())
+
+    return QFunc(n, B, np.matrix([0 for _ in range(n)]), 5)
 
 
 def to_args(t, n):
