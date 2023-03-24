@@ -1,7 +1,7 @@
 import math
 from dataclasses import dataclass
 
-from lab1.tools import Func, get_metric3, to_args, FastQFunc
+from lab1.tools import get_metric3, to_args, FastQFunc
 import numpy as np
 
 @dataclass
@@ -59,7 +59,7 @@ def grad_down(func: FastQFunc,
         metr = get_metric3(func.grad(y) - func.grad(x)) # todo change metric
 
         out.points.append(x)
-        out.points_with_floats.append(x.values())
+        out.points_with_floats.append(x)
         out.alpha.append(alpha)
         out.metrics.append(metr)
         out.iter += 1
@@ -76,9 +76,12 @@ def grad_down(func: FastQFunc,
             return out
 
         if len(out.points) > 10:
-            if out.points[-1] == out.points[-2]:
-                out.was_broken = True
-                return out
+            pass
+
+
+            # if out.points[-1] == out.points[-2]:
+            #     out.was_broken = True
+            #     return out
 
     return out
 

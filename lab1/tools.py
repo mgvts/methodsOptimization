@@ -130,19 +130,20 @@ class FastQFunc:
         Quadratic function with numpy
     """
 
-    def __init__(self, n, A: np.matrix, b: np.Matrix, c):
+    def __init__(self, n, A: np.matrix, b: np.matrix, c):
         sp.init_printing(use_unicode=True)
         self.A = A
-        self.b = b
+        self.b = b.transpose()
         self.c = c
+        self.n = n
         # self.f = A*x*x + bx + c
         # self.grad = Ax + b
 
-    def grad_in_point(self, point: np.Matrix):
+    def grad(self, point: np.matrix):
         return np.dot(self.A, point) + self.b
 
-    def eval(self, point: np.Matrix):
-        return np.dot(np.matmul(self.A, point), point) + np.dot(self.b, point) + self.c
+    def eval(self, point: np.matrix):
+        return np.dot(np.matmul(self.A, point).transpose(), point) + np.dot(self.b.transpose(), point) + self.c
 
     def cond(self):
         lambdas = self.get_lamdas()
@@ -199,7 +200,7 @@ def generate_quadratic_func(n: int, k: float) -> QFunc:
     return QFunc(n, B, sp.Matrix([0 for _ in range(n)]), 5)
 
 
-def fast_generate_quadratic_func(n: int, k: float) -> QFunc:
+def fast_generate_quadratic_func(n: int, k: float) -> FastQFunc:
     """
     :param n: Count of vars
     :param k: Number of cond
@@ -237,7 +238,7 @@ def fast_generate_quadratic_func(n: int, k: float) -> QFunc:
 
     B = np.matmul(np.matmul(Q, A), Q.transpose())
 
-    return QFunc(n, B, np.matrix([0 for _ in range(n)]), 5)
+    return FastQFunc(n, B, np.matrix([0 for _ in range(n)]), 5)
 
 
 def to_args(t, n):
