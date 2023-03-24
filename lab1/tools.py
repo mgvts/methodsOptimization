@@ -254,8 +254,6 @@ def get_metric2(x: sp.Matrix):
 
 def get_metric3(x: np.matrix):
     res = 0
-    print(x)
     for i in x:
-        print(i)
         res += i * i
     return np.sqrt(res)
