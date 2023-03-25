@@ -1,0 +1,1520 @@
+[
+  {
+    "n": 2,
+    "k": 2,
+    "const_grag_sr_iter": [
+      1024.8,
+      1282.1,
+      1259.5,
+      1164.6,
+      1247.8
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 2,
+    "k": 102,
+    "const_grag_sr_iter": [
+      3865.9,
+      2620.7,
+      9499.3,
+      2521.9,
+      2472.3
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 2,
+    "k": 202,
+    "const_grag_sr_iter": [
+      3302.9,
+      5472.4,
+      2489.5,
+      14059.7,
+      45811.0
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      9
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 2,
+    "k": 302,
+    "const_grag_sr_iter": [
+      18672.4,
+      19022.1,
+      3757.4,
+      35726.3,
+      5711.9
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 2,
+    "k": 402,
+    "const_grag_sr_iter": [
+      4181.3,
+      7984.6,
+      3336.4,
+      3318.1,
+      4144.6
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 2,
+    "k": 502,
+    "const_grag_sr_iter": [
+      30053.1,
+      5924.9,
+      6646.6,
+      19257.7,
+      7525.6
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 2,
+    "k": 602,
+    "const_grag_sr_iter": [
+      4439.7,
+      5131.2,
+      8152.8,
+      5363.8,
+      6002.6
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 2,
+    "k": 702,
+    "const_grag_sr_iter": [
+      6175.3,
+      13503.6,
+      7248.8,
+      7831.6,
+      4915.4
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 2,
+    "k": 802,
+    "const_grag_sr_iter": [
+      35030.9,
+      13672.4,
+      6295.8,
+      8091.8,
+      13256.3
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 2,
+    "k": 902,
+    "const_grag_sr_iter": [
+      46578.5,
+      8094.3,
+      6410.6,
+      6434.4,
+      8965.2
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      8,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 102,
+    "k": 2,
+    "const_grag_sr_iter": [
+      1478.3,
+      1494.7,
+      1470.8,
+      1493.1,
+      1455.3
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 102,
+    "k": 102,
+    "const_grag_sr_iter": [
+      1406.3,
+      2025.8,
+      10638.5,
+      14618.4,
+      8429.7
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 102,
+    "k": 202,
+    "const_grag_sr_iter": [
+      3502.5,
+      14399.8,
+      3818.2,
+      18230.9,
+      4772.4
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 102,
+    "k": 302,
+    "const_grag_sr_iter": [
+      3093.8,
+      5622.8,
+      3241.3,
+      3143.5,
+      3243.4
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 102,
+    "k": 402,
+    "const_grag_sr_iter": [
+      5369.9,
+      5446.9,
+      8255.4,
+      6637.3,
+      4136.7
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 102,
+    "k": 502,
+    "const_grag_sr_iter": [
+      4357.4,
+      4630.1,
+      5245.9,
+      4920.8,
+      8712.4
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 102,
+    "k": 602,
+    "const_grag_sr_iter": [
+      6935.9,
+      4373.5,
+      5124.3,
+      13839.8,
+      27206.3
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 102,
+    "k": 702,
+    "const_grag_sr_iter": [
+      10221.8,
+      11281.3,
+      6567.6,
+      4763.8,
+      11963.3
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 102,
+    "k": 802,
+    "const_grag_sr_iter": [
+      18646.8,
+      6800.9,
+      8595.0,
+      16322.2,
+      16792.2
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 102,
+    "k": 902,
+    "const_grag_sr_iter": [
+      7553.2,
+      15974.8,
+      -1,
+      7357.8,
+      11501.0
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      10,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 202,
+    "k": 2,
+    "const_grag_sr_iter": [
+      1537.9,
+      1534.3,
+      1526.3,
+      1528.8,
+      1537.9
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 202,
+    "k": 102,
+    "const_grag_sr_iter": [
+      3642.9,
+      5644.0,
+      12515.3,
+      2278.6,
+      2536.9
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 202,
+    "k": 202,
+    "const_grag_sr_iter": [
+      2213.2,
+      2273.5,
+      3088.9,
+      2940.7,
+      3016.3
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 202,
+    "k": 302,
+    "const_grag_sr_iter": [
+      7086.9,
+      6350.6,
+      3596.0,
+      20261.0,
+      17175.1
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 202,
+    "k": 402,
+    "const_grag_sr_iter": [
+      -1,
+      7085.7,
+      46594.0,
+      4936.5,
+      4251.3
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      10,
+      0,
+      9,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 202,
+    "k": 502,
+    "const_grag_sr_iter": [
+      6279.4,
+      18612.1,
+      11567.8,
+      4360.1,
+      6210.1
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 202,
+    "k": 602,
+    "const_grag_sr_iter": [
+      5023.6,
+      9503.5,
+      6967.9,
+      29010.0,
+      26496.8
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 202,
+    "k": 702,
+    "const_grag_sr_iter": [
+      12849.3,
+      13827.1,
+      5681.0,
+      43289.57142857143,
+      8473.1
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      3,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 202,
+    "k": 802,
+    "const_grag_sr_iter": [
+      10652.0,
+      6287.3,
+      43296.666666666664,
+      15418.4,
+      11523.2
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      7,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 202,
+    "k": 902,
+    "const_grag_sr_iter": [
+      14864.9,
+      18775.2,
+      13513.5,
+      18386.4,
+      11579.5
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 302,
+    "k": 2,
+    "const_grag_sr_iter": [
+      1544.9,
+      1545.7,
+      1561.4,
+      1541.6,
+      1543.6
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 302,
+    "k": 102,
+    "const_grag_sr_iter": [
+      1563.4,
+      9951.3,
+      19054.2,
+      1792.2,
+      3767.5
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "n": 302,
+    "k": 202,
+    "const_grag_sr_iter": [
+      2959.7,
+      2197.8,
+      11028.8,
+      2266.5,
+      2500.5
+    ],
+    "dichotomy_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "wolfe_grag_sr_iter": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "const_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "dichotomy_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "wolfe_grag_was_broken": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+]
