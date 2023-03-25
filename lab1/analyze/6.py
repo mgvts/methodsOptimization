@@ -63,7 +63,7 @@ def T(n, k, f):
     const_c = 0
     dich_c = 0
     wolfe_c = 0
-    for start_point in [[-100 for i in n], [100 for i in n]]:
+    for start_point in [[-100 for i in range(n)], [100 for i in range(n)]]:
 
         a = 1
         if k > 100:
