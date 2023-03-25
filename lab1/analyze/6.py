@@ -63,7 +63,7 @@ def T(n, k, f):
     const_c = 0
     dich_c = 0
     wolfe_c = 0
-    for start_point in [[-100, -100], [100, 100], [-100, 100]]:
+    for start_point in [[-100 for i in n], [100 for i in n]]:
 
         a = 1
         if k > 100:
@@ -138,7 +138,7 @@ def stat(out):
 
 
 for n in range(102, 1000, 100):
-    for k in range(1, 1000, 100):
+    for k in range(2, 1000, 100):
         out = OutputDTO(
             n=n,
             k=k,
