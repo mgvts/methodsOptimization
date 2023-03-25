@@ -21,7 +21,7 @@ class OutputDTO:
 
 class Saver:
     def __init__(self):
-        self.data = {}
+        self.data = []
 
     def add(self, n: int, k: int, const_grag_sr_iter: list[float],
             dichotomy_grag_sr_iter: list[float],
@@ -30,7 +30,7 @@ class Saver:
             dichotomy_grag_was_broken: list[int],
             wolfe_grag_was_broken: list[int],
             ):
-        self.data.update({
+        self.data.append({
             'n': n,
             'k': k,
             'const_grag_sr_iter': const_grag_sr_iter,
@@ -137,7 +137,7 @@ def stat(out):
     print("---------------------------------")
 
 
-for n in range(2, 1000, 100):
+for n in range(102, 1000, 100):
     for k in range(1, 1000, 100):
         out = OutputDTO(
             n=n,
