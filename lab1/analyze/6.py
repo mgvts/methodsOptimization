@@ -63,8 +63,7 @@ def T(n, k, f):
     const_c = 0
     dich_c = 0
     wolfe_c = 0
-    for i in range(8):
-        start_point = [randint(-100, 100) for _ in range(n)]
+    for start_point in [[-100, -100], [100, 100], [-100, 100]]:
 
         a = 1
         if k > 100:
@@ -82,25 +81,26 @@ def T(n, k, f):
         if k > 900:
             a = 6
 
-        constDto = grad_down(f, start_point, alpha=1 / (80 * a * k + 1))
+        constDto = grad_down(f, start_point, alpha=1 / (80 * a * k + 1), max_inter=100)
         dichDto = grad_down_dichotomy(f, start_point)
         wolfeDto = grad_down_wolfe(f, start_point)
 
-        const_grag.append(len(constDto.points))
-        dichotomy_grag.append(len(dichDto.points))
-        wolfe_grad.append(len(wolfeDto.points))
 
         if constDto.was_broken:
             const += 1
         else:
+            const_grag.append(len(constDto.points))
             const_c += 1
         if dichDto.was_broken:
             dich += 1
         else:
+            dichotomy_grag.append(len(dichDto.points))
             dich_c += 1
+
         if wolfeDto.was_broken:
             wolfe += 1
         else:
+            wolfe_grad.append(len(wolfeDto.points))
             wolfe_c += 1
 
     return [(sum(const_grag) / const_c if const_c != 0 else -1, const),
@@ -137,8 +137,8 @@ def stat(out):
     print("---------------------------------")
 
 
-for n in range(2, 1000, 10):
-    for k in range(1, 1000, 10):
+for n in range(2, 1000, 100):
+    for k in range(1, 1000, 100):
         out = OutputDTO(
             n=n,
             k=k,

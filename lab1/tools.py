@@ -4,7 +4,7 @@ from random import randint, uniform
 import numpy as np
 import sympy as sp
 
-INF = 1_000
+INF = 1_00
 
 
 class Func:
@@ -224,14 +224,6 @@ def fast_generate_quadratic_func(n: int, k: float) -> FastQFunc:
     v = [float(a_min)] + [uniform(float(a_min), float(a_max)) for _ in range(n - 2)] + [float(a_max)]
     A = np.diag(v)
 
-    # A - диагональная матрица с числом обусловленности k
-    # A - уже квадратичная форма. в каноническом виде
-    # 2. любая квадратичная форма приводится к каноническому виду, с помощью ортоганального преобразования
-    #   Q^(T) * B * Q = A
-    #   Q - ортоганальная матрица -> Q^(-1) = Q^(T)
-    #   тогда B = Q * A * Q^(T)
-    #   нужно сгенерировтаь ортоганальную матрицу
-    # Note важно тк монла получиться матрица из 0 и это хуйня
     C = np.matrix(np.random.randint(1, INF, (n, n)))
     Q, R = np.linalg.qr(C)
     # Q, R = C.QRdecomposition()
@@ -253,7 +245,4 @@ def get_metric2(x: sp.Matrix):
 
 
 def get_metric3(x: np.matrix):
-    res = 0
-    for i in x:
-        res += i * i
-    return np.sqrt(res)
+    return np.sqrt(np.square(x).sum())

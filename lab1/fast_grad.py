@@ -20,7 +20,7 @@ class OutputDTO:
 
 eps_CONST = 0.0001
 alpha_CONST = 0.02
-max_INTER = 30000
+max_INTER = 10000
 
 
 # todo можно обьединить grad_down() и grad_down_dichotomy()
@@ -158,7 +158,7 @@ def grad_down_dichotomy(func: FastQFunc,
             out.was_broken = True
             return out
 
-        if len(out.points) > 100:
+        if len(out.points) > 10:
             if out.points[-1] == out.points[-2]:
                 out.was_broken = True
                 return out
