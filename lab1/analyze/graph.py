@@ -80,16 +80,18 @@ def add_arrow(line, position=None, direction='right', size=15, color=None):
 # stringFunc = "2*x0^2 + (x1-3)^2 + 2*x0 - 3*x1 - 10"
 # start_point = sp.Matrix([[-10 for i in range(n)]])
 
-stringFunc = "10*x0^2 + x1 ^ 2"
+stringFunc = "10*x0^2 + x1^2"
 start_point = sp.Matrix([[10, 10]])
-start_points = [(10, 10, 'green'),
+start_points = [
+    (10, 10, 'green'),
                 (-10, -10, 'red'),
                 (10, -10, 'blue'),
                 (-10, 10, 'yellow'),
                 (10, 0, 'pink'),
                 (-10, 0, 'gray'),
                 (0, 10, 'orange'),
-                (0, -10, 'black')]
+                (0, -10, 'black')
+]
 
 
 n = 2
@@ -104,13 +106,24 @@ f3 = func3.f
 
 x_range = [-20, 20]
 y_range = [-20, 20]
+def get_p():
+    p = plot_implicit(f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range))
+    p.extend(plot_implicit(Func(n, "10*x0^2 + x1 ^ 2 - 10").f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range)))
+    p.extend(plot_implicit(Func(n, "10*x0^2 + x1 ^ 2 - 20").f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range)))
+    p.extend(plot_implicit(Func(n, "10*x0^2 + x1 ^ 2 - 50").f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range)))
+    p.extend(plot_implicit(Func(n, "10*x0^2 + x1 ^ 2 - 100").f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range)))
+    p.extend(plot_implicit(Func(n, "10*x0^2 + x1 ^ 2 - 200").f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range)))
+    p.extend(plot_implicit(Func(n, "10*x0^2 + x1 ^ 2 - 300").f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range)))
+    p.extend(plot_implicit(Func(n, "10*x0^2 + x1 ^ 2 - 500").f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range)))
+    p.extend(plot_implicit(Func(n, "10*x0^2 + x1 ^ 2 - 1000").f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range)))
 
-p = plot_implicit(f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range))
-plt1 = get_sympy_subplots(p)
+    return p
+
+plt1 = get_sympy_subplots(get_p())
 
 for p in start_points:
     start_point = sp.Matrix([[p[0], p[1]]])
-    x2 = grad_down_dichotomy(n, stringFunc, start_point, max_inter=5)
+    x2 = grad_down_dichotomy(n, stringFunc, start_point, max_inter=100)
     out_from_const = x2
     for i in range(1, len(x2.points)):
         x1, y1 = [x2.points[i - 1][0], x2.points[i][0]], [x2.points[i - 1][1], x2.points[i][1]]
@@ -121,41 +134,41 @@ for p in start_points:
             # small dist -> not line, point
             pass
 
+plt1.title('Dichotomy, Func: 10*x0^2 + x1^2')
 
-p2 = plot_implicit(f2, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range))
-plt2 = get_sympy_subplots(p2)
+plt2 = get_sympy_subplots(get_p())
 for p in start_points:
     start_point = sp.Matrix([[p[0], p[1]]])
-    x2 = grad_down(n, stringFunc, start_point, max_inter=1000, alpha=0.01)
+    x2 = grad_down(n, stringFunc, start_point, max_inter=1000, alpha=0.05)
     out_from_dichotomy = x2
     for i in range(1, len(x2.points)):
         x1, y1 = [x2.points[i - 1][0], x2.points[i][0]], [x2.points[i - 1][1], x2.points[i][1]]
-        line2 = plt2.plot(x1, y1, marker='o', ms=1, color=p[2])
+        line2 = plt2.gca().plot(x1, y1, marker='o', ms=1, color=p[2])
         try:
             add_arrow(line2[0], size=12)
         except IndexError:
             # small dist -> not line, point
             pass
 
+plt2.title('Const, Func: 10*x0^2 + x1^2, alpha: 0.05')
 
-p3 = plot_implicit(f, show=False, points=300, x_var=(x, *x_range), y_var=(y, *y_range))
-plt3 = get_sympy_subplots(p3)
+plt3 = get_sympy_subplots(get_p())
 
 for p in start_points:
     start_point = sp.Matrix([[p[0], p[1]]])
-    x3 = grad_down_wolfe(n, stringFunc, start_point, max_inter=5)
+    x3 = grad_down_wolfe(n, stringFunc, start_point, max_inter=100)
     out_from_const = x3
     for i in range(1, len(x3.points)):
         x1, y1 = [x3.points[i - 1][0], x3.points[i][0]], [x3.points[i - 1][1], x3.points[i][1]]
-        line = plt1.gca().plot(x1, y1, marker='o', ms=1, color=p[2])
+        line3 = plt3.gca().plot(x1, y1, marker='o', ms=1, color=p[2])
         try:
-            add_arrow(line[0], size=12)
+            add_arrow(line3[0], size=12)
         except IndexError:
             # small dist -> not line, point
             pass
 
+plt3.title('Wolfe, Func: 10*x0^2 + x1^2')
+
 plt1.show()
-plt2.show()
-plt3.show()
-
-
+# plt2.show()
+# plt3.show()

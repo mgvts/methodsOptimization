@@ -137,8 +137,8 @@ def stat(out):
     print("---------------------------------")
 
 
-for n in range(102, 1000, 100):
-    for k in range(2, 1000, 100):
+for n in range(2, 1000, 100):
+    for k in range(1, 1000, 100):
         out = OutputDTO(
             n=n,
             k=k,
