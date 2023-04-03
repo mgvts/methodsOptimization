@@ -1,3 +1,5 @@
+import math
+import random
 from decimal import Decimal
 from random import randint, uniform
 
@@ -221,16 +223,16 @@ def fast_generate_quadratic_func(n: int, k: float) -> FastQFunc:
         a_min = Decimal(randint(1, int(k) - 1))
     a_max = Decimal(Decimal(k) * a_min)
     a_max, a_min = max(a_max, a_min), min(a_max, a_min)
-    v = [float(a_min)] + [uniform(float(a_min), float(a_max)) for _ in range(n - 2)] + [float(a_max)]
+    v = [float(a_min)] + [random.randint(math.ceil(a_min), math.floor(a_max)) for _ in range(n - 2)] + [float(a_max)]
     A = np.diag(v)
 
-    C = np.matrix(np.random.randint(1, INF, (n, n)))
-    Q, R = np.linalg.qr(C)
+    # C = np.matrix(np.random.randint(1, INF, (n, n)))
+    # Q, R = np.linalg.qr(C)
     # Q, R = C.QRdecomposition()
 
-    B = np.matmul(np.matmul(Q, A), Q.transpose())
+    # B = np.matmul(np.matmul(Q, A), Q.transpose())
 
-    return FastQFunc(n, B, np.matrix([0 for _ in range(n)]), 5)
+    return FastQFunc(n, A, np.matrix([0 for _ in range(n)]), 5)
 
 
 def to_args(t, n):

@@ -18,6 +18,59 @@ f2 = FastQFunc(2, np.matrix([
     [0, 2]
 ]), np.matrix([[0, 0]]), 0)
 
+# "9*x0^2 + (x1)^2"
+f21 = FastQFunc(2, np.matrix([
+    [18, 0],
+    [0, 2]
+]), np.matrix([[0, 0]]), 0)
+# "7*x0^2 + (x1)^2"
+f22 = FastQFunc(2, np.matrix([
+    [14, 0],
+    [0, 2]
+]), np.matrix([[0, 0]]), 0)
+# "5*x0^2 + (x1)^2"
+f23 = FastQFunc(2, np.matrix([
+    [10, 0],
+    [0, 2]
+]), np.matrix([[0, 0]]), 0)
+# "3*x0^2 + (x1)^2"
+f24 = FastQFunc(2, np.matrix([
+    [6, 0],
+    [0, 2]
+]), np.matrix([[0, 0]]), 0)
+# "2*x0^2 + (x1)^2"
+f25 = FastQFunc(2, np.matrix([
+    [4, 0],
+    [0, 2]
+]), np.matrix([[0, 0]]), 0)
+# "1.9*x0^2 + (x1)^2"
+f221 = FastQFunc(2, np.matrix([
+    [3.8, 0],
+    [0, 2]
+]), np.matrix([[0, 0]]), 0)
+# "1.7*x0^2 + (x1)^2"
+f222 = FastQFunc(2, np.matrix([
+    [3.4, 0],
+    [0, 2]
+]), np.matrix([[0, 0]]), 0)
+# "1.5*x0^2 + (x1)^2"
+f223 = FastQFunc(2, np.matrix([
+    [3, 0],
+    [0, 2]
+]), np.matrix([[0, 0]]), 0)
+# "1.3*x0^2 + (x1)^2"
+f224 = FastQFunc(2, np.matrix([
+    [2.6, 0],
+    [0, 2]
+]), np.matrix([[0, 0]]), 0)
+# "1.1*x0^2 + (x1)^2"
+f225 = FastQFunc(2, np.matrix([
+    [2.2, 0],
+    [0, 2]
+]), np.matrix([[0, 0]]), 0)
+
+
+
 # "2 * x0^2 + (x1-3)^2 + 2*x0 -3*x1 - 10"
 f3 = FastQFunc(2, np.matrix([
     [4, 0],
@@ -27,7 +80,7 @@ f3 = FastQFunc(2, np.matrix([
 base = [
     # (0.5, "x0^2 + (x1)^2", f1, 1, '3a_count_iter_1_1_1.json', 'const'),
     # (0.2, "x0^2 + (x1)^2", f1, 1, '3a_count_iter_1_1_2.json', 'const'),
-    (0.01, "x0^2 + (x1)^2", f1, 1, '3a_count_iter_1_1_3.json', 'const'),
+    # (0.01, "x0^2 + (x1)^2", f1, 1, '3a_count_iter_1_1_3.json', 'const'),
 
     # (0.08, "10*x0^2 + (x1)^2", f2, 1, '3a_count_iter_1_2_1.json', 'const'),
     # (0.09, "10*x0^2 + (x1)^2", f2, 1, '3a_count_iter_1_2_2.json', 'const'),
@@ -40,9 +93,20 @@ base = [
     # (-1, "x0^2 + (x1)^2", f1, 1, '3a_count_iter_d_1_1.json', 'dichotomy'),
     # (-1, "10*x0^2 + (x1)^2", f2, 1, '3a_count_iter_d_2_1.json', 'dichotomy'),
     # (-1, "2 * x0^2 + (x1-3)^2 + 2*x0 -3*x1 - 10", f3, 1, '3a_count_iter_d_3_1.json', 'dichotomy'),
+
+    (-1, "9*x0^2 + x1^2", f21, 1, '3a_count_iter_d_4_1.json', 'dichotomy'),
+    (-1, "7*x0^2 + x1^2", f22, 1, '3a_count_iter_d_4_2.json', 'dichotomy'),
+    (-1, "5*x0^2 + x1^2", f23, 1, '3a_count_iter_d_4_3.json', 'dichotomy'),
+    (-1, "3*x0^2 + x1^2", f24, 1, '3a_count_iter_d_4_4.json', 'dichotomy'),
+    (-1, "2*x0^2 + x1^2", f25, 1, '3a_count_iter_d_4_5.json', 'dichotomy'),
+    (-1, "1.9*x0^2 + x1^2", f221, 1, '3a_count_iter_d_5_1.json', 'dichotomy'),
+    (-1, "1.7*x0^2 + x1^2", f222, 1, '3a_count_iter_d_5_2.json', 'dichotomy'),
+    (-1, "1.5*x0^2 + x1^2", f223, 1, '3a_count_iter_d_5_3.json', 'dichotomy'),
+    (-1, "1.3*x0^2 + x1^2", f224, 1, '3a_count_iter_d_5_4.json', 'dichotomy'),
+    (-1, "1.1*x0^2 + x1^2", f225, 1, '3a_count_iter_d_5_5.json', 'dichotomy'),
 ]
 
-for alpha, stringFunc, func, step, name, _type in base:
+def writer(alpha, stringFunc, func, step, name, _type):
     max_inter = 10_000
     n = 2
 
@@ -100,3 +164,18 @@ for alpha, stringFunc, func, step, name, _type in base:
             'func': stringFunc,
             'matrix': matr
         }))
+
+import multiprocessing
+
+if __name__ == '__main__':
+    process = []
+    for alpha, stringFunc, func, step, name, _type in base:
+        proc = multiprocessing.Process(target=writer, args=(alpha, stringFunc, func, step, name, _type,))
+        process.append(proc)
+
+    for i in process:
+        i.start()
+
+    for i in process:
+        i.join()
+

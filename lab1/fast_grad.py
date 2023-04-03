@@ -83,7 +83,7 @@ def grad_down(func: FastQFunc,
     return out
 
 
-def dichotomy(f, eps=0.001, delta=0.00015, a=0, b=1):
+def dichotomy(f, eps=0.0001, delta=0.00015, a=0, b=1):
     def calc_min_iterations():
         return math.log((b - a - delta) / (2 * eps - delta), 2)
 
