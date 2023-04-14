@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from lab1.tools import get_metric3, to_args, FastQFunc
 import numpy as np
 
+
 @dataclass
 class OutputDTO:
     points: list[float]
@@ -56,7 +57,7 @@ def grad_down(func: FastQFunc,
     while True:
         y = x - alpha * func.grad(x)
 
-        metr = get_metric3(func.grad(y) - func.grad(x)) # todo change metric
+        metr = get_metric3(func.grad(y) - func.grad(x))  # todo change metric
 
         out.points.append(x.transpose().tolist()[0])
         out.points_with_floats.append(x)
@@ -83,17 +84,13 @@ def grad_down(func: FastQFunc,
     return out
 
 
-def dichotomy(f, eps=0.001, delta=0.00015, a=0, b=1):
-    def calc_min_iterations():
-        return math.log((b - a - delta) / (2 * eps - delta), 2)
-
-    N = math.ceil(calc_min_iterations())
-    x1 = (a + b - delta) / 2
-    x2 = (a + b + delta) / 2
-    for i in range(N):
+def dichotomy(f, eps=0.001, a=0, b=1, max_inter=max_INTER):
+    i = 0
+    while True:
+        i += 1
         # 1 step
-        x1 = (a + b - delta) / 2
-        x2 = (a + b + delta) / 2
+        x1 = (a + b) / 2
+        x2 = (a + b) / 2
 
         # 2 step
         if f(x1) <= f(x2):
@@ -105,7 +102,9 @@ def dichotomy(f, eps=0.001, delta=0.00015, a=0, b=1):
         eps_i = (b - a) / 2
         if eps_i <= eps:
             break
-    return (a + b) / 2, N
+        if i > max_inter:
+            break
+    return (a + b) / 2, i
 
 
 def grad_down_dichotomy(func: FastQFunc,
@@ -135,9 +134,13 @@ def grad_down_dichotomy(func: FastQFunc,
         iter=0,
         dichotomy_count=[]
     )
-
+    b = 1
     while True:
-        alpha, count = dichotomy(lambda a: func.eval(x - a * func.grad(x)))
+        if len(out.points) < 5:
+            b = 10
+        else:
+            b = 1
+        alpha, count = dichotomy(lambda a: func.eval(x - a * func.grad(x)), a=0, b=b, max_inter=max_inter)
         y = x - alpha * func.grad(x)
         metr = get_metric3(func.grad(y) - func.grad(x))
 
@@ -165,7 +168,6 @@ def grad_down_dichotomy(func: FastQFunc,
     return out
 
 
-
 def parse_eval(f: FastQFunc):
     return lambda x: f.eval(to_args(x, f.get_n()))
 
@@ -188,6 +190,7 @@ def find_alpha_with_wolfe(f: FastQFunc,
     while not wolfe_conditions(f, start_point, alpha, c1=c1, c2=c2):
         alpha *= 0.5
     return alpha
+
 
 def grad_down_wolfe(func: FastQFunc,
                     start_point: [float],
@@ -214,7 +217,7 @@ def grad_down_wolfe(func: FastQFunc,
         eps=eps,
         metrics=[],
         iter=0,
-        dichotomy_count = []
+        dichotomy_count=[]
     )
 
     while True:

@@ -55,7 +55,7 @@ def grad_down(n: int, string_func: str,
         eps=eps,
         metrics=[],
         iter=0,
-        dichotomy_count = []
+        dichotomy_count=[]
     )
 
     while True:
@@ -80,24 +80,20 @@ def grad_down(n: int, string_func: str,
             return out
 
         if len(out.points) > 10:
-             if out.points[-1] == out.points[-2]:
+            if out.points[-1] == out.points[-2]:
                 out.was_broken = True
                 return out
 
     return out
 
 
-def dichotomy(f, eps=0.001, delta=0.00015, a=0, b=1):
-    def calc_min_iterations():
-        return sp.log((b - a - delta) / (2 * eps - delta), 2)
-
-    N = math.ceil(calc_min_iterations())
-    x1 = (a + b - delta) / 2
-    x2 = (a + b + delta) / 2
-    for i in range(N):
+def dichotomy(f, eps=0.001, a=0, b=1):
+    i = 0
+    while True:
+        i += 1
         # 1 step
-        x1 = (a + b - delta) / 2
-        x2 = (a + b + delta) / 2
+        x1 = (a + b) / 2
+        x2 = (a + b) / 2
 
         # 2 step
         if f(x1) <= f(x2):
@@ -109,7 +105,9 @@ def dichotomy(f, eps=0.001, delta=0.00015, a=0, b=1):
         eps_i = (b - a) / 2
         if eps_i <= eps:
             break
-    return (a + b) / 2, N
+        if i > max_INTER:
+            break
+    return (a + b) / 2, i
 
 
 def grad_down_dichotomy(n: int, string_func: str,
@@ -138,11 +136,15 @@ def grad_down_dichotomy(n: int, string_func: str,
         eps=eps,
         metrics=[],
         iter=0,
-        dichotomy_count = []
+        dichotomy_count=[]
     )
-
+    b = 1
     while True:
-        alpha, count = dichotomy(lambda a: f.eval(to_args(x - a * f.grad(to_args(x, n)).evalf(), n)))
+        if len(out.points) < 5:
+            b = 10
+        else:
+            b = 1
+        alpha, count = dichotomy(lambda a: f.eval(to_args(x - a * f.grad(to_args(x, n)).evalf(), n)), a=0, b=b)
         y = x - alpha * f.grad(to_args(x, n))
         metr = get_metric2(f.grad(to_args(y, n)) - f.grad(to_args(x, n)))
 
@@ -213,19 +215,19 @@ def wolfe_conditions(f: Func, x: sp.Matrix, alpha: float, c1=0.01, c2=0.99):
     return cond1 and cond2
 
 
-# todo
 def find_alpha_with_wolfe(f: Func,
-                           start_point: sp.Matrix,
-                           c1=0.001, c2=0.99):
+                          start_point: sp.Matrix,
+                          c1=0.001, c2=0.99):
     alpha = 1
     while not wolfe_conditions(f, start_point, alpha, c1=c1, c2=c2):
         alpha *= 0.5
     return alpha
 
+
 def grad_down_wolfe(n: int, string_func: str,
-                        start_point: sp.Matrix,
-                        eps=eps_CONST,
-                        max_inter=max_INTER) -> OutputDTO:
+                    start_point: sp.Matrix,
+                    eps=eps_CONST,
+                    max_inter=max_INTER) -> OutputDTO:
     """
     :param max_inter: max interaction should be run
     :param n: how many variables in function
@@ -248,7 +250,7 @@ def grad_down_wolfe(n: int, string_func: str,
         eps=eps,
         metrics=[],
         iter=0,
-        dichotomy_count = []
+        dichotomy_count=[]
     )
 
     while True:

@@ -8,6 +8,7 @@ from time import time
 
 
 # here also task7
+# deprecated
 @dataclass
 class OutputDTO:
     n: int
@@ -49,7 +50,7 @@ def stat(out):
     # print(f"{out.dichotomy_grag_iter=}")
     const_grag_sr_iter = sum(out.const_grag_iter) / len(out.const_grag_iter)
     dichotomy_grag_sr_iter = sum(out.dichotomy_grag_iter) / len(out.dichotomy_grag_iter)
-    wolfe_grag_sr_iter = sum(out.dichotomy_grag_iter) / len(out.dichotomy_grag_iter)
+    wolfe_grag_sr_iter = sum(out.wolfe_grag_iter) / len(out.wolfe_grag_iter)
 
     print(f"{const_grag_sr_iter=}")
     print(f"{dichotomy_grag_sr_iter=}")
@@ -76,7 +77,7 @@ for n in range(2, 1000, 50):
             # try:
             print(".", end="")
             f = generate_quadratic_func(n, k)
-            const_grag, dichotomy_grag, wolfe_grad = T(n, k)
+            const_grag, dichotomy_grag, wolfe_grad = T(n, k, f)
             out.const_grag_was_broken.append(const_grag.was_broken)
             out.const_grag_iter.append(len(const_grag.points))
             out.dichotomy_grag_was_broken.append(const_grag.was_broken)
