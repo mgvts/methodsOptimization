@@ -6,7 +6,7 @@ import sympy as sp
 
 from lab1.tools import Func
 
-with open('../data/3a_count_iter_1_1_3.json', 'r') as file:
+with open('../data/3a_count_iter_d_4_1.json', 'r') as file:
     dt = json.loads(file.read())
     d = dt['matrix']
 
@@ -46,4 +46,4 @@ cs = plt.contour(x, y, z, levels=20)
 plt.clabel(cs)
 
 plt.show()
-fig.savefig('../images/3_1_1_3.png')
+fig.savefig('../images/3_4_10.png')

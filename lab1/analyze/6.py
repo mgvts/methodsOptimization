@@ -63,7 +63,7 @@ def T(n, k, f):
     const_c = 0
     dich_c = 0
     wolfe_c = 0
-    for start_point in [[-100 for i in range(n)], [100 for i in range(n)]]:
+    for start_point in [[-10000 for i in range(n)], [10000 for i in range(n)]]:
 
         a = 1
         if k > 100:
@@ -81,7 +81,7 @@ def T(n, k, f):
         if k > 900:
             a = 6
 
-        constDto = grad_down(f, start_point, alpha=1 / (80 * a * k + 1), max_inter=100)
+        constDto = grad_down(f, start_point, alpha=1 / (80 * a * k + 1), max_inter=10000)
         dichDto = grad_down_dichotomy(f, start_point)
         wolfeDto = grad_down_wolfe(f, start_point)
 

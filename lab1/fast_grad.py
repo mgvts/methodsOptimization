@@ -57,7 +57,7 @@ def grad_down(func: FastQFunc,
     while True:
         y = x - alpha * func.grad(x)
 
-        metr = get_metric3(func.grad(y) - func.grad(x))  # todo change metric
+        metr = get_metric3(func.grad(y) - func.grad(x)) # todo change metric
 
         out.points.append(x.transpose().tolist()[0])
         out.points_with_floats.append(x)
@@ -168,6 +168,7 @@ def grad_down_dichotomy(func: FastQFunc,
     return out
 
 
+
 def parse_eval(f: FastQFunc):
     return lambda x: f.eval(to_args(x, f.get_n()))
 
@@ -190,7 +191,6 @@ def find_alpha_with_wolfe(f: FastQFunc,
     while not wolfe_conditions(f, start_point, alpha, c1=c1, c2=c2):
         alpha *= 0.5
     return alpha
-
 
 def grad_down_wolfe(func: FastQFunc,
                     start_point: [float],
@@ -217,7 +217,7 @@ def grad_down_wolfe(func: FastQFunc,
         eps=eps,
         metrics=[],
         iter=0,
-        dichotomy_count=[]
+        dichotomy_count = []
     )
 
     while True:
