@@ -3,7 +3,9 @@ from matplotlib import pyplot as plt
 
 from lab2.linear_regression import LinearRegression
 import twod_line
+import matplotlib as mpl
 
+mpl.use('TkAgg')
 if __name__ == '__main__':
     count = 20
     X, Y = twod_line.generate_linear_regression_2d(count, shift=(2, 4))

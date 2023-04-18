@@ -1,7 +1,9 @@
 import numpy as np
 from matplotlib import pyplot as plt
-
 from lab2.linear_regression import LinearRegression
+import matplotlib as mpl
+
+mpl.use('TkAgg')
 
 
 def generate_linear_regression_2d(count, x=(0, 10), shift=(2, 2)):

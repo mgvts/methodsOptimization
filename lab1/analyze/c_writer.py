@@ -179,3 +179,18 @@ if __name__ == '__main__':
     for i in process:
         i.join()
 
+
+import multiprocessing
+
+if __name__ == '__main__':
+    process = []
+    for alpha, stringFunc, func, step, name, _type in base:
+        proc = multiprocessing.Process(target=writer, args=(alpha, stringFunc, func, step, name, _type,))
+        process.append(proc)
+
+    for i in process:
+        i.start()
+
+    for i in process:
+        i.join()
+
