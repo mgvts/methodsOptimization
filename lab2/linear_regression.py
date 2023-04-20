@@ -47,6 +47,16 @@ class LinearRegression:
             b -= alpha * self.get_grad_in_point(b)
         return b
 
+    def stochastic_grad_down_points(self, alpha=0.001, runs=1000):
+        """ for git """
+        points = []
+        b = self.start_point.copy()
+        points.append(b.copy())
+        for i in range(runs):
+            b -= alpha * self.get_grad_in_point(b)
+            points.append(b.copy())
+        return points
+
     def stochastic_grad_down_exponential(self, alpha=0.001, c=0.01, runs=1000):
         """ 2. """
         b = self.start_point.copy()
