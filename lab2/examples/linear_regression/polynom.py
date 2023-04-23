@@ -2,6 +2,9 @@ import os
 import numpy as np
 from matplotlib import pyplot as plt
 from lab2.linear_regression import LinearRegression
+import matplotlib as mpl
+
+mpl.use('TkAgg')
 
 # x0 * 1 + x1 * c1 + x2
 # y = b0 * x0^0 + b1 * x1^1 + b2 * x2
