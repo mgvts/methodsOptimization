@@ -107,7 +107,7 @@ class LinearRegression:
                 _l = last_g.pop(0)
                 G -= np.square(_l)
             G += np.square(l)
-            g = alpha / (np.power(1/W * G, 1 / 2) + 0.1 ** 8)
+            g = alpha / (np.power(1 / W * G, 1 / 2) + 0.1 ** 8)
             g = np.diag(g.transpose()[0])
             b -= g * l
         return b
@@ -125,3 +125,13 @@ class LinearRegression:
             # _u = u / (1 - b2 ** (i + 1))
             b -= alpha * m / (np.sqrt(u) + 0.1 ** 8)
         return b
+
+
+def get_batch_name(count, batch):
+    if batch == 1:
+        return "SGD"
+    if batch == count:
+        return "GD"
+    if count > batch > 1:
+        return "Minibatch_GD"
+    raise AssertionError("bad values")
