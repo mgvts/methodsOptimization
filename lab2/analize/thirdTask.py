@@ -31,7 +31,8 @@ start_points = [np.matrix([10., 10.]).transpose(),
                 np.matrix([-10., 10.]).transpose(),
                 np.matrix([10., -10.]).transpose(),
                 np.matrix([-10., -10.]).transpose()]
-runs = [10000]
+
+runs = [1000]
 names = ["adagrad",
          "adam",
          "momentum",
@@ -44,7 +45,7 @@ def start(alphas, i):
     data = []
     for count in counts:
         print(f"{count=} {names[i]}")
-        for batch in [count/2]:
+        for batch in [count / 2]:
             X, Y = generate_linear_regression_2d(count)
             for start_point in start_points:
                 lr = LinearRegression(X, Y, start_point, batch=batch)
@@ -95,14 +96,17 @@ def start(alphas, i):
     return data
 
 
-start([0.0001, 0.001, 0.005, 0.02, 0.25], 2)
+start(sorted([0.0001, 0.0005, 0.00075, 0.001, 0.00125, 0.0025, 0.005,
+              0.02]), 2)
 
-# start(sorted([0.01, 0.025, 0.05, 0.1, 0.200, 1, 0.50, 5.00]), 1)
+# start(sorted([0.01, 0.025, 0.05, 0.05, 0.075, 0.1, 0.200, 1, 0.50, 5.00]), 1)
 
-# start([0.01, 0.02, 0.1, 1, 5, 20, 50], 3)
+# start([0.01, 0.02, 0.05, 0.1, 0.25, 0.5, 1, 5, 20], 3)
 
 # start([1, 2, 50, 100, 1000000], 0)
 
-# start([0.01, 0.05, 0.5, 1, 5, 10, 20], 1)
+
+# 0.0001 , 0.00025, 0.0003 , 0.0005 , 0.0007 , 0.001
+# start(sorted([0.00040, 0.0001, 0.00025, 0.0003, 0.0005, 0.0007, 0.001]), 4)
 
 # start([i*0.0001 for i in range(1, 1000, 10)], 5)
