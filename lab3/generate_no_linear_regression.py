@@ -1,11 +1,9 @@
-import random
-
 import numpy as np
 
 from lab3.util import show_image
 
 
-def generate_no_linear_regression(count: int, x=(-10, 10), noise=(0, 0), arg_count=1, func=lambda x: x ** 0.5) -> (
+def generate_no_linear_regression(count: int, x=(0, 10), noise=(0, 0), arg_count=1, func=lambda x: x ** 0.5) -> (
         np.matrix, np.matrix):
     X = np.matrix(np.random.uniform(x[0], x[1], (count, arg_count)))
     Y = np.zeros((count, 1))
@@ -15,6 +13,22 @@ def generate_no_linear_regression(count: int, x=(-10, 10), noise=(0, 0), arg_cou
     return X, Y
 
 
+def generate_first_case(b1=0.1, b2=0.01):
+    """
+    func: y = 1 / (b1 + b2 * x)
+    b1 = 0.1, b2 = 0.01
+    """
+    return generate_no_linear_regression(25, func=lambda i: 1 / (b1 + b2 * np.exp(i)))
+
+
+def generate_second_case():
+    """
+    func: y = b1 * x / (b2 + x)
+    b1 = 10, b2 = 1
+    """
+    return generate_no_linear_regression(25, func=lambda i: 10 * i / (1 + i))
+
+
 if __name__ == '__main__':
-    X, Y = generate_no_linear_regression(200, func=lambda i: 1 /(np.exp(i)))
+    X, Y = generate_first_case()
     show_image(X, Y)

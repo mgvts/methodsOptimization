@@ -6,7 +6,7 @@ def show_image(X, Y):
 
     plt.plot(X[:], Y[:], 'o', label='data')
 
-    ax.set_xlim([-30, 30])
-    ax.set_ylim([-30, 30])
+    ax.set_xlim([0, 15])
+    ax.set_ylim([-10, 10])
 
     plt.show()

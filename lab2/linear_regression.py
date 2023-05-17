@@ -10,7 +10,7 @@ class LinearRegression:
     :param batch set None for don't use batch
     """
 
-    def __init__(self, X, Y, start_point, batch):
+    def __init__(self, X, Y, start_point, batch = None):
         self.X = X
         self.Y = Y
         self.start_point = start_point
