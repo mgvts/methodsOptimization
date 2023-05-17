@@ -20,33 +20,33 @@ if __name__ == '__main__':
             'c': 'o-g',
             'mec': 'g'
         },
-        # {
-        #     "name": "Momentum",
-        #     'points': regression.momentum_stochastic_grad_down_points(y=0.8, alpha=0.001, runs=1000),
-        #     'c': 'o-m',
-        #     'mec': 'm'
-        # },
-        # {
-        #     "name": "Nesterov",
-        #     'points': regression.nesterov_stochastic_grad_down_points(y=0.9, alpha=0.0001, runs=1000),
-        #     'c': 'o-b',
-        #     'mec': 'b'
-        # },
+        {
+            "name": "Momentum",
+            'points': regression.momentum_stochastic_grad_down_points(y=0.8, alpha=0.001, runs=1000),
+            'c': 'o-m',
+            'mec': 'm'
+        },
+        {
+            "name": "Nesterov",
+            'points': regression.nesterov_stochastic_grad_down_points(y=0.9, alpha=0.0001, runs=1000),
+            'c': 'o-b',
+            'mec': 'b'
+        },
         {
             "name": "Adagrad",
-            'points': regression.adagrad_stochastic_grad_down_points(alpha=5, runs=1000),
+            'points': regression.adagrad_stochastic_grad_down_points(alpha=10, runs=1000),
             'c': 'v-c',
             'mec': 'c'
         },
-        # {
-        #     "name": "RMS",
-        #     'points': regression.rms_stochastic_grad_down_points(W=10, alpha=0.2, runs=1000),
-        #     'c': 'v-r',
-        #     'mec': 'r'
-        # },
+        {
+            "name": "RMS",
+            'points': regression.rms_stochastic_grad_down_points(W=10, alpha=0.2, runs=1000),
+            'c': 'v-r',
+            'mec': 'r'
+        },
         {
             "name": "Adam",
-            'points': regression.adam_stochastic_grad_down_points(b1=0.9, b2=0.9, alpha=0.1, runs=1000),
+            'points': regression.adam_stochastic_grad_down_points(b1=0.9, b2=0.9, alpha=0.11, runs=1000),
             'c': 'v-b',
             'mec': 'b'
         }
