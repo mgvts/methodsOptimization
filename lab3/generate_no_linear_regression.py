@@ -16,5 +16,5 @@ def generate_no_linear_regression(count: int, x=(-10, 10), noise=(0, 0), arg_cou
 
 
 if __name__ == '__main__':
-    X, Y = generate_no_linear_regression(200, func=lambda i: 1 /(random.uniform(0, 0.01) + random.uniform(0, 1) * np.exp(i)))
+    X, Y = generate_no_linear_regression(200, func=lambda i: 1 /(np.exp(i)))
     show_image(X, Y)
