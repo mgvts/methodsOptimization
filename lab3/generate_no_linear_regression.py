@@ -15,7 +15,7 @@ def generate_no_linear_regression(count: int, x=(0, 10), noise=(0, 0), arg_count
 
 def generate_first_case(b1=0.1, b2=0.01):
     """
-    func: y = 1 / (b1 + b2 * x)
+    func: y = 1 / (b1 + b2 * e^x)
     b1 = 0.1, b2 = 0.01
     """
     return generate_no_linear_regression(25, func=lambda i: 1 / (b1 + b2 * np.exp(i)))

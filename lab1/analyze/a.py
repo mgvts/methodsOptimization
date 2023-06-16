@@ -15,7 +15,6 @@ from lab1.tools import Func
 
 """
 
-mpl.use('TkAgg')
 
 max_inter = 1000
 stringFunc = "10*x0^2 + (x1)^2"
