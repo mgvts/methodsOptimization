@@ -7,7 +7,7 @@ import sympy as sp
 n = 2
 stringFunc = "x0^2 + x1^2 - 10"
 
-start_point = sp.Matrix([[randint(-100000000000000000000, 100000000000000000000) for i in range(n)]])
+start_point = sp.Matrix([[randint(-100000000, 10000) for i in range(n)]])
 print(x := grad_down_dichotomy(n, stringFunc, start_point))
 print('Найденная точка:', x.points[-1])
 

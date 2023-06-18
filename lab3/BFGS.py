@@ -1,6 +1,12 @@
 from collections.abc import Callable
+from dataclasses import dataclass
 
 import numpy as np
+
+
+@dataclass
+class outputDTO:
+    points: list[np.array]
 
 
 # Callable[[Arg1Type, Arg2Type], ReturnType]
@@ -9,9 +15,21 @@ def bfgs(f: Callable[[np.array], float],
          grad_f: Callable[[np.array], np.array],
          x0: np.array,
          eps=1e-6,
-         max_iter=10) -> np.array:
+         max_iter=10) -> outputDTO:
+    """
+    Алгоритм BFGS который позволяет искать минимум функции
+
+    :param f: функция которую требуется исследовать
+    :param grad_f: функция, которая является градиентом данной
+    :param x0: начальная точка
+    :param eps: необходимая точность алгоритма
+    :param max_iter: максимальное число итераций, если нужная точность не достигнута
+    :return: такая точка(вектор) x, что достигается минимум функции
+    :raises AssertionError: если в процессе alpha будет нулём (метод не сошёлся)
+    """
+    out = outputDTO(points=[x0])
     n = len(x0)
-    # but correct way is use H = B_0^-1 where B_0 is hessian of current function
+    # this is casual way, but instead I may be any 'good' matrix
     H = np.eye(n)
     x = x0
     for i in range(max_iter):
@@ -38,7 +56,8 @@ def bfgs(f: Callable[[np.array], float],
         B = np.eye(n) - rho * np.outer(y, s)
         H = A @ H @ B + rho * np.outer(s, s)
         x = x_new
-    return x
+        out.points.append(x)
+    return out
 
 
 def line_search(f: Callable[[np.array], float],
@@ -71,7 +90,8 @@ def get_cond2(grad_f: Callable[[np.array], np.array],
     return grad_f(x + alpha * p).T @ p >= c2 * (grad_f(x).T @ p)
 
 
-# пока хуй знает, спасил с гпт вроде выглядит нормально
+# пока хуй знает, спастил с гпт вроде выглядит нормально
+# todo
 def lbfgs(f: Callable[[np.array], float],
           grad_f: Callable[[np.array], np.array],
           x0: np.array,
@@ -119,3 +139,4 @@ def lbfgs(f: Callable[[np.array], float],
 
         x = x_new
     return x
+
