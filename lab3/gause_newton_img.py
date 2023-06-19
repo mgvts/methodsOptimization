@@ -49,8 +49,8 @@ def run(B):
     return i
 
 
-x = np.arange(-0.1, 1, 0.001)
-y = np.arange(-0.1, 0.1, 0.001)
+x = np.arange(-10, 10, 0.1)
+y = np.arange(-10, 10, 0.1)
 X, Y = np.meshgrid(x, y)
 Z = 0 * X * Y
 
@@ -62,6 +62,9 @@ for i in x:
             it = run(np.matrix([i, j]).T)
             if it == 49:
                 it = -1
+            else:
+                if j < -0.025 and i < 0.2:
+                    print(i, j)
         except:
             it = -1
         Z[cnt_y, cnt_x] = it

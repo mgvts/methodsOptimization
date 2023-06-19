@@ -54,8 +54,8 @@ def run(B):
 
 def run2(B):
     eps_prev = 10000000
-    OUT = [B.copy()]
-    for i in range(50):
+    OUT = [[B.copy(), B.copy(), B.copy()]]
+    for i in range(100):
         J = []
         b1 = B[0, 0]
         b2 = B[1, 0]
@@ -83,48 +83,29 @@ def run2(B):
         bsd = J.T * RB
         t = np.linalg.norm(bsd) ** 2 / np.linalg.norm(J * bsd) ** 2
 
-        a = (bgn + t * bsd) / 2
-        B -= a
-        OUT.append(B.copy())
+        _B = (B - bgn + B - t * bsd) / 2
+        OUT.append([_B.copy(), B - bgn, B - t * bsd])
+        B = _B
     return OUT
 
 
 fig, ax = plt.subplots()
 ax.plot(0.1, 0.01, marker="o", markersize=5, markeredgecolor="red", markerfacecolor="green")
 
-B = run(np.matrix([0.1, 0]).T)
-x = []
-y = []
-for i in B:
-    x.append(i[0, 0])
-    y.append(i[1, 0])
-ax.plot(x, y, 'v-m', alpha=1, label='0,0', lw=0.5, mec='c', mew=1, ms=1)
-
-
 B = run2(np.matrix([0.1, 0]).T)
-print(B)
 x = []
 y = []
+prev = None
 for i in B:
-    x.append(i[0, 0])
-    y.append(i[1, 0])
-ax.plot(x, y, 'v-b', alpha=1, label='0,0', lw=0.5, mec='c', mew=1, ms=1)
+    print(i[0])
+    x.append(i[0][0, 0])
+    y.append(i[0][1, 0])
+    if prev:
+        ax.plot([prev[0], i[1][0, 0]], [prev[1], i[1][1, 0]], 'o-m', alpha=0.5, label='0,0', lw=0.5, mec='c', mew=1, ms=1)
+        ax.plot([prev[0], i[2][0, 0]], [prev[1], i[2][1, 0]], 'o-g', alpha=0.5, label='0,0', lw=0.5, mec='c', mew=1, ms=1)
+        ax.plot([i[1][0, 0], i[2][0, 0]], [i[1][1, 0], i[2][1, 0]], 'o-b', alpha=0.5, label='0,0', lw=0.5, mec='c', mew=1, ms=1)
 
-B = run(np.matrix([0.2, 0.01]).T)
-x = []
-y = []
-for i in B:
-    x.append(i[0, 0])
-    y.append(i[1, 0])
-ax.plot(x, y, 'v-m', alpha=1, label='0,0', lw=0.5, mec='c', mew=1, ms=1)
-
-B = run2(np.matrix([0.2, 0.01]).T)
-print(B)
-x = []
-y = []
-for i in B:
-    x.append(i[0, 0])
-    y.append(i[1, 0])
+    prev = [i[0][0, 0], i[0][1, 0]]
 ax.plot(x, y, 'v-b', alpha=1, label='0,0', lw=0.5, mec='c', mew=1, ms=1)
 
 
