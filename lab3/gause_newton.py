@@ -1,21 +1,26 @@
 import numpy as np
-from lab3.util import derivative
 
 R = np.matrix(
     [
-        [0.038, 0.050],
-        [0.194, 0.127],
-        [0.425, 0.094],
-        [0.626, 0.2122],
-        [1.253, 0.2729],
-        [2.500, 0.2665],
-        [3.740, 0.3317],
+        [0.535, 8.5416],
+        [0.7225, 8.2922],
+        [1.0948, 7.699],
+        [2.6901, 4.0431],
+        [3.132, 3.0378],
+        [4.6131, 0.9025],
+        [4.9355, 0.6705],
+        [6.2199, 0.1951],
+        [7.2687, 0.0692],
+        [8.2892, 0.0251],
+        [8.7415, 0.016],
+        [9.6237, 0.0066]
     ]
 )
 
-B = np.matrix([0.9, 0.2]).T
+B = np.matrix([0.1, 0]).T
+ITERS = 10
 
-for i in range(10):
+for i in range(ITERS):
     J = []
     b1 = B[0, 0]
     b2 = B[1, 0]
@@ -23,25 +28,17 @@ for i in range(10):
     eps = 0
     for u in R:
         x = u[0, 0]
-
         J.append(
             [
-                -x / (b2 + x),
-                (b1 * x) / (b2 + x) ** 2
+                1 / (b1 ** 2 + 2 * np.exp(x) * b1 * b2 + b2 ** 2 * np.exp(2 * x)),
+                np.exp(x) / (np.exp(2 * x) * b2 ** 2 + 2 * np.exp(x) * b1 * b2 + b1 ** 2)
             ]
         )
-        s = u[0, 1] - (b1 * x) / (b2 + x)
+        s = u[0, 1] - 1 / (b1 + b2 * np.exp(x))
         RB.append(s)
-        eps += (u[0, 1] - s) ** 2
-
+        eps += (s) ** 2
     print(eps)
-
     J = np.matrix(J)
     RB = np.matrix(RB).T
-    r = np.linalg.matrix_rank(J)
-    if r < J.shape[1]:
-        print('failed: rg(J) =', r)
-        break
-
     B = B - np.linalg.inv(J.T * J) * J.T * RB
-    print()
+print(B)
