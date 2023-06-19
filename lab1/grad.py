@@ -22,7 +22,7 @@ class OutputDTO:
     dichotomy_count: list[int]
 
 
-eps_CONST = 0.0001
+eps_CONST = 1e-6
 alpha_CONST = 0.1
 max_INTER = 100
 
