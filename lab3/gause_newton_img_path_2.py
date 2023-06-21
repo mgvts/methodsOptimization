@@ -2,20 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 R = np.matrix(
-    [
-        [0.535, 8.5416],
-        [0.7225, 8.2922],
-        [1.0948, 7.699],
-        [2.6901, 4.0431],
-        [3.132, 3.0378],
-        [4.6131, 0.9025],
-        [4.9355, 0.6705],
-        [6.2199, 0.1951],
-        [7.2687, 0.0692],
-        [8.2892, 0.0251],
-        [8.7415, 0.016],
-        [9.6237, 0.0066]
-    ]
+    [[0.3538, 8.7165], [0.6032, 8.4363], [1.0404, 7.6312], [2.7325, 4.1316], [2.9829, 3.0954], [4.7056, 1.0344], [4.8328, 0.7546], [6.3445, 0.0874], [7.23, 0.0856], [8.4027, -0.047], [8.6061, -0.0838], [9.7713, -0.162]]
 )
 
 
@@ -79,9 +66,10 @@ def run2(B):
         J = np.matrix(J)
         RB = np.matrix(RB).T
 
-        bgn = np.linalg.inv(J.T * J) * J.T * RB
+        c = 0.1
+        bgn = c * np.linalg.inv(J.T * J) * J.T * RB
         bsd = J.T * RB
-        t = np.linalg.norm(bsd) ** 2 / np.linalg.norm(J * bsd) ** 2
+        t = c * np.linalg.norm(bsd) ** 2 / np.linalg.norm(J * bsd) ** 2
 
         _B = (B - bgn + B - t * bsd) / 2
         OUT.append([_B.copy(), B - bgn, B - t * bsd])
@@ -92,7 +80,7 @@ def run2(B):
 fig, ax = plt.subplots()
 ax.plot(0.1, 0.01, marker="o", markersize=5, markeredgecolor="red", markerfacecolor="green")
 
-B = run2(np.matrix([0.1, 0]).T)
+B = run2(np.matrix([0.3, 0]).T)
 x = []
 y = []
 prev = None

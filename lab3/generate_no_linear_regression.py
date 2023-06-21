@@ -18,7 +18,7 @@ def generate_first_case(b1=0.1, b2=0.01):
     func: y = 1 / (b1 + b2 * e^x)
     b1 = 0.1, b2 = 0.01
     """
-    return generate_no_linear_regression(25, func=lambda i: 1 / (b1 + b2 * np.exp(i)))
+    return generate_no_linear_regression(50, func=lambda i: 1 / (b1 + b2 * np.exp(i)), x=(-5, 10))
 
 
 def generate_second_case():
@@ -31,4 +31,5 @@ def generate_second_case():
 
 if __name__ == '__main__':
     X, Y = generate_first_case()
+    print(X, Y)
     show_image(X, Y)

@@ -72,7 +72,7 @@ def run2(B):
             s = u[0, 1] - 1 / (b1 + b2 * np.exp(x))
             RB.append(s)
             eps += (s) ** 2
-        if eps < 0.001:
+        if eps < 1:
             break
         # if eps_prev < eps:
         #     raise ValueError

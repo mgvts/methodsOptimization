@@ -14,12 +14,12 @@ if __name__ == '__main__':
     regression = LinearRegression(X, Y, b, count / 2)
 
     data = [
-        {
-            'name': "Minibatch CD",
-            'points': regression.stochastic_grad_down_points(alpha=0.001, runs=1000, eps=0.0001),
-            'c': 'o-g',
-            'mec': 'g'
-        },
+        # {
+        #     'name': "Minibatch CD",
+        #     'points': regression.stochastic_grad_down_points(alpha=0.001, runs=1000, eps=0.0001),
+        #     'c': 'o-g',
+        #     'mec': 'g'
+        # },
         {
             "name": "Momentum",
             'points': regression.momentum_stochastic_grad_down_points(y=0.8, alpha=0.001, runs=1000),
