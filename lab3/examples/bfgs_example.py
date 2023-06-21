@@ -92,21 +92,21 @@ def show(points: [np.array]):
 #           x0=np.array([10, -10])).points)
 
 # seems good
-i_good = bfgs(f=f2,
-              grad_f=grad_f2,
-              x0=np.array([10, -10])).points
-# pprint(i_good)
-print(len(i_good))
-print(*[f"point:{i}, value:{f2(i)}" for i in i_good], sep="\n")
+# i_good = bfgs(f=f2,
+#               grad_f=grad_f2,
+#               x0=np.array([10, -10])).points
+# # pprint(i_good)
+# print(len(i_good))
+# print(*[f"point:{i}, value:{f2(i)}" for i in i_good], sep="\n")
 
-print("st")
-i_bad = grad_down_wolfe(2,
-                        "(x0^2 + x1 - 11)^2 + (x0 + x1^2 - 7)^2",
-                        sp.Matrix([[10, -10]])).points
+# print("st")
+# i_bad = grad_down_wolfe(2,
+#                         "(x0^2 + x1 - 11)^2 + (x0 + x1^2 - 7)^2",
+#                         sp.Matrix([[10, -10]])).points
 
-print(len(i_bad))
-print(f"result value {f2(i_bad[-1])}")
-print(*[f"point:[{i[0,0]},{i[0, 1]}], value:{f2(i)} {count=}" for i, count in zip(i_bad, range(len(i_bad)))], sep="\n")
+# print(len(i_bad))
+# print(f"result value {f2(i_bad[-1])}")
+# print(*[f"point:[{i[0, 0]},{i[0, 1]}], value:{f2(i)} {count=}" for i, count in zip(i_bad, range(len(i_bad)))], sep="\n")
 # show(bfgs(f=f2,
 #           grad_f=grad_f2,
 #           x0=np.array([10, -10])).points)

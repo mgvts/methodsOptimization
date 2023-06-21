@@ -1,13 +1,13 @@
 import math
 from dataclasses import dataclass
-
+from collections.abc import Callable
 from lab1.tools import get_metric3, to_args, FastQFunc
 import numpy as np
 
 
 @dataclass
 class OutputDTO:
-    points: list[float]
+    points: list[np.array]
     points_with_floats: list[list[float]]
     alpha: list[float]
     eps: float
@@ -57,7 +57,7 @@ def grad_down(func: FastQFunc,
     while True:
         y = x - alpha * func.grad(x)
 
-        metr = get_metric3(func.grad(y) - func.grad(x)) # todo change metric
+        metr = get_metric3(func.grad(y) - func.grad(x))  # todo change metric
 
         out.points.append(x.transpose().tolist()[0])
         out.points_with_floats.append(x)
@@ -168,7 +168,6 @@ def grad_down_dichotomy(func: FastQFunc,
     return out
 
 
-
 def parse_eval(f: FastQFunc):
     return lambda x: f.eval(to_args(x, f.get_n()))
 
@@ -191,6 +190,7 @@ def find_alpha_with_wolfe(f: FastQFunc,
     while not wolfe_conditions(f, start_point, alpha, c1=c1, c2=c2):
         alpha *= 0.5
     return alpha
+
 
 def grad_down_wolfe(func: FastQFunc,
                     start_point: [float],
@@ -217,7 +217,7 @@ def grad_down_wolfe(func: FastQFunc,
         eps=eps,
         metrics=[],
         iter=0,
-        dichotomy_count = []
+        dichotomy_count=[]
     )
 
     while True:
@@ -237,6 +237,88 @@ def grad_down_wolfe(func: FastQFunc,
             break
 
         if func.eval(y) < func.eval(x):
+            x = y
+        if len(out.points) > max_inter:
+            out.was_broken = True
+            return out
+
+        if len(out.points) > 10:
+            if out.points[-1] == out.points[-2]:
+                out.was_broken = True
+                return out
+    return out
+
+
+def find_alpha_with_wolfe_with_casual_func(f, grad_f, x, c1=0.001, c2=0.99):
+    alpha = 1
+    p = grad_f(x)
+    while not (get_cond1(f, grad_f, x, alpha, p, c1=c1) and
+               get_cond2(grad_f, x, alpha, p, c2=c2)):
+        alpha *= 0.5
+        if alpha == 0:
+            raise AssertionError("in line search alpha equals zero")
+    return alpha
+
+
+def get_cond1(f: Callable[[np.array], float],
+              grad_f: Callable[[np.array], np.array],
+              x: np.array,
+              alpha: float,
+              p: np.array, c1: float) -> bool:
+    return f(x + alpha * p) <= f(x) + c1 * alpha * (grad_f(x).T @ p)
+
+
+def get_cond2(grad_f: Callable[[np.array], np.array],
+              x: np.array, alpha: float, p: np.array, c2: float) -> bool:
+    return grad_f(x + alpha * p).T @ p >= c2 * (grad_f(x).T @ p)
+
+
+def grad_down_wolfe_with_casual_func(f: Callable[[np.array], float],
+                                     grad_f: Callable[[np.array], np.array],
+                                     x: np.array,
+                                     eps=eps_CONST,
+                                     max_inter=max_INTER) -> OutputDTO:
+    """
+    :param max_inter: max interaction should be run
+    :param n: how many variables in function
+    :param string_func: string of Function
+    :param start_point: Start point like sp.Matrix([[1,1]])
+    :param function_alpha: function to changed  alpha
+    :param eps: eps in gradient method
+    :return: OutputDTO, dataclass for analyze
+    """
+
+
+    out = OutputDTO(
+        points=[],
+        points_with_floats=[],
+        alpha=[],
+        string_func="none",
+        n=len(x),
+        was_broken=False,
+        eps=eps,
+        metrics=[],
+        iter=0,
+        dichotomy_count=[]
+    )
+
+    while True:
+        alpha = find_alpha_with_wolfe_with_casual_func(f, grad_f, x)
+        # alpha = dichotomy(lambda a: f.eval(to_args(x - a * f.grad(to_args(x, n)).evalf(), n)))
+        y = x - alpha * grad_f(x)
+        metr = get_metric3(grad_f(y) - grad_f(x))
+
+        out.points.append(x)
+        out.points_with_floats.append(x)
+        out.alpha.append(alpha)
+        out.metrics.append(metr)
+        out.iter += 1
+
+        # ||∇f(x)|| < ε
+        if metr < eps:
+            break
+
+        if f(y) < f(x):
             x = y
         if len(out.points) > max_inter:
             out.was_broken = True
