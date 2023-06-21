@@ -7,6 +7,7 @@ import numpy as np
 @dataclass
 class outputDTO:
     points: list[np.array]
+    was_broken: bool
 
 
 # Callable[[Arg1Type, Arg2Type], ReturnType]
@@ -27,36 +28,41 @@ def bfgs(f: Callable[[np.array], float],
     :return: такая точка(вектор) x, что достигается минимум функции
     :raises AssertionError: если в процессе alpha будет нулём (метод не сошёлся)
     """
-    out = outputDTO(points=[x0])
+    out = outputDTO(points=[x0], was_broken=False)
     n = len(x0)
     # this is casual way, but instead I may be any 'good' matrix
     H = np.eye(n)
     x = x0
     for i in range(max_iter):
-        grad = grad_f(x)
-        # norm(grad) this 2d casual norm
-        if np.linalg.norm(grad) < eps:
+        try:
+            grad = grad_f(x)
+            # norm(grad) this 2d casual norm
+            if np.linalg.norm(grad) < eps:
+                break
+            # changing p = - H_k *∇ f_k
+            # same as p = -np.dot(H, grad)
+            p = - H @ grad
+            # alpha finding with well known line search with Wolfe conditions
+
+            alpha = line_search(f, grad_f, x,   p)
+            # немного хитро, но присмотритесь, это то что надо
+            # (x_new = x + alpha*p; s = x_new - x)
+            s = alpha * p
+            x_new = x + s
+
+            y = grad_f(x_new) - grad
+            rho = 1 / (y @ s)
+            # в отчёте будут красивые картинки, просто поверьте, что это работает
+            # np.outer(s, y) = s @ (y.T)
+            A = np.eye(n) - rho * np.outer(s, y)
+            B = np.eye(n) - rho * np.outer(y, s)
+            H = A @ H @ B + rho * np.outer(s, s)
+            x = x_new
+            out.points.append(x)
+        except Exception as e:
+            # print(e)
+            out.was_broken = True
             break
-        # changing p = - H_k *∇ f_k
-        # same as p = -np.dot(H, grad)
-        p = - H @ grad
-        # alpha finding with well known line search with Wolfe conditions
-
-        alpha = line_search(f, grad_f, x, p)
-        # немного хитро, но присмотритесь, это то что надо
-        # (x_new = x + alpha*p; s = x_new - x)
-        s = alpha * p
-        x_new = x + s
-
-        y = grad_f(x_new) - grad
-        rho = 1 / (y @ s)
-        # в отчёте будут красивые картинки, просто поверьте, что это работает
-        # np.outer(s, y) = s @ (y.T)
-        A = np.eye(n) - rho * np.outer(s, y)
-        B = np.eye(n) - rho * np.outer(y, s)
-        H = A @ H @ B + rho * np.outer(s, s)
-        x = x_new
-        out.points.append(x)
     return out
 
 
@@ -139,4 +145,3 @@ def lbfgs(f: Callable[[np.array], float],
 
         x = x_new
     return x
-
