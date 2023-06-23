@@ -15,6 +15,8 @@ def read(path):
 
     df_bfgs = df[df['name'] == 'bfgs']
 
+    df_wolfe = df[df['name'] == 'wolfe_search']
+
     print(df_grad.head())
     print()
     print(df_grad['iters'].aggregate([np.mean]))
@@ -30,4 +32,4 @@ def read(path):
 
 
 # read('D:\\3sem\\methodsOptimization\\lab3\\analizeBFGS\\Qfunc\\stat.csv')
-read('D:\\3sem\\methodsOptimization\\lab3\\analizeBFGS\\Rosenbrock\\stat.csv')
+read('D:\\3sem\\methodsOptimization\\lab3\\analizeBFGS\\sincos\\stat.csv')

@@ -1,14 +1,25 @@
 import numpy as np
 
-from lab3.generate_no_linear_regression import generate_first_case
+R = np.matrix(
+    [
+        [0.535, 8.5416],
+        [0.7225, 8.2922],
+        [1.0948, 7.699],
+        [2.6901, 4.0431],
+        [3.132, 3.0378],
+        [4.6131, 0.9025],
+        [4.9355, 0.6705],
+        [6.2199, 0.1951],
+        [7.2687, 0.0692],
+        [8.2892, 0.0251],
+        [8.7415, 0.016],
+        [9.6237, 0.0066]
+    ]
+)
 
-X, Y = generate_first_case()
+B = np.matrix([0.1, 0]).T
+ITERS = 10
 
-R = np.append(X, Y, axis=1)
-B = np.matrix([10, 5]).T
-ITERS = 3000
-
-cnt = 0
 for i in range(ITERS):
     J = []
     b1 = B[0, 0]
@@ -26,12 +37,8 @@ for i in range(ITERS):
         s = u[0, 1] - 1 / (b1 + b2 * np.exp(x))
         RB.append(s)
         eps += (s) ** 2
-    if eps < 0.01:
-        break
     print(eps)
     J = np.matrix(J)
     RB = np.matrix(RB).T
-    B = B - 0.002 * np.linalg.inv(J.T * J) * J.T * RB
-    cnt += 1
+    B = B - np.linalg.inv(J.T * J) * J.T * RB
 print(B)
-print(cnt)

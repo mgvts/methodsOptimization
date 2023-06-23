@@ -161,6 +161,10 @@ class FastQFunc:
     def get_lamdas(self):
         return list(dict(self.A.eigenvals()).keys())
 
+    def __str__(self):
+        return
+
+
 
 def generate_quadratic_func(n: int, k: float) -> QFunc:
     """
