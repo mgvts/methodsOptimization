@@ -8,7 +8,7 @@ from lab2.examples.linear_regression import twod_line
 learning_rate = 0.01
 epochs = 1000
 
-X, Y = twod_line.generate_linear_regression_2d(20, shift=(4, 4))
+X, Y = twod_line.generate_linear_regression_2d(20, shift=(2, 2))
 X = X[:, 1]
 
 y_tensor = torch.from_numpy(Y.reshape(-1, 1)).float()
@@ -19,11 +19,12 @@ class LinearRegression(torch.nn.Module):
     def __init__(self, inputSize, outputSize, _x, _y):
         super(LinearRegression, self).__init__()
         self.linear = torch.nn.Linear(inputSize, outputSize)
-        self.linear.weight = torch.nn.Parameter(torch.tensor([[1.]], requires_grad=True))
-        self.linear.bias = torch.nn.Parameter(torch.tensor([1.], requires_grad=True))
+        self.linear.weight = torch.nn.Parameter(torch.tensor([[10.]], requires_grad=True))
+        self.linear.bias = torch.nn.Parameter(torch.tensor([10.], requires_grad=True))
 
     def forward(self, X):
         predictions = self.linear(X)
+        print(self.linear.weight.data.item())
         return predictions
 
 
@@ -41,22 +42,15 @@ def take_batch(use_batch=True):
 
 
 _x, _y = take_batch()
-print(X_tensor)
-print(_x)
-
-print(y_tensor)
-print(_y)
 
 for epoch in range(epochs):
     optimizer.zero_grad()
     _x, _y = take_batch()
     predictions = model(_x)
     loss = criterion(predictions, _y)
-    # get gradients
     loss.backward()
-    # update parameters
     optimizer.step()
-    if loss.item() < 0.001:
+    if loss.item() < 0.0001:
         break
 
 print(epoch)
