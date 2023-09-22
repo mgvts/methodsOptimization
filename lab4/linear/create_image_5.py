@@ -14,18 +14,18 @@ if __name__ == '__main__':
     torch_regression = PyTorchLinearRegression(X, Y, b, count / 2)
 
     data = [
-        # {
-        #     'name': "Minibatch CD",
-        #     'points': regression.stochastic_grad_down_points(alpha=0.001, runs=1000, eps=0.0001),
-        #     'c': 'o-g',
-        #     'mec': 'g'
-        # },
-        # {
-        #     'name': "Minibatch CD Pytorch",
-        #     'torch_points': torch_regression.stochastic_grad_down_points(alpha=0.001, runs=1000, eps=0.0001),
-        #     'c': 'o-m',
-        #     'mec': 'm'
-        # },
+        {
+            'name': "Minibatch CD",
+            'points': regression.stochastic_grad_down_points(alpha=0.001, runs=1000, eps=0.0001),
+            'c': 'o-g',
+            'mec': 'g'
+        },
+        {
+            'name': "Minibatch CD Pytorch",
+            'torch_points': torch_regression.stochastic_grad_down_points(alpha=0.02, runs=1000, eps=0.0001),
+            'c': 'o-m',
+            'mec': 'm'
+        },
         # {
         #     "name": "Momentum",
         #     'points': regression.momentum_stochastic_grad_down_points(y=0.8, alpha=0.001, runs=1000),
@@ -74,18 +74,18 @@ if __name__ == '__main__':
         #     'c': 'o-g',
         #     'mec': 'g'
         # },
-        {
-            "name": "Adam",
-            'points': regression.adam_stochastic_grad_down_points(b1=0.9, b2=0.9, alpha=0.11, runs=1000),
-            'c': 'v-b',
-            'mec': 'b'
-        },
-        {
-            'name': "ADAM Pytorch",
-            'torch_points': torch_regression.adam_stochastic_grad_down_points(b1=0.9, b2=0.9, alpha=0.11, runs=1000, eps=0.0001),
-            'c': 'o-g',
-            'mec': 'g'
-        },
+        # {
+        #     "name": "Adam",
+        #     'points': regression.adam_stochastic_grad_down_points(b1=0.9, b2=0.9, alpha=0.11, runs=1000),
+        #     'c': 'v-b',
+        #     'mec': 'b'
+        # },
+        # {
+        #     'name': "ADAM Pytorch",
+        #     'torch_points': torch_regression.adam_stochastic_grad_down_points(b1=0.9, b2=0.9, alpha=0.11, runs=1000, eps=0.0001),
+        #     'c': 'o-g',
+        #     'mec': 'g'
+        # },
     ]
 
     plt.figure(figsize=(12, 5))
