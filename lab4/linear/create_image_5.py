@@ -63,7 +63,7 @@ if __name__ == '__main__':
         #     'mec': 'm'
         # },
         # {
-        #     "name": "RMS",
+        #     "name": " ",
         #     'points': regression.rms_stochastic_grad_down_points(W=4, alpha=0.2, runs=1000),
         #     'c': 'v-r',
         #     'mec': 'r'

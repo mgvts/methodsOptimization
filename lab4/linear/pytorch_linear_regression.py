@@ -50,13 +50,13 @@ class PyTorchLinearRegression:
 
         for epoch in range(runs):
             optimizer.zero_grad()
-            _x, _y = take_batch(x_tensor, y_tensor, self.batch)
-            predictions = model(_x)
-            loss = criterion(predictions, _y)
+            # _x, _y = take_batch(x_tensor, y_tensor, self.batch)
+            predictions = model(x_tensor)
+            loss = criterion(predictions, y_tensor)
             loss.backward()
             optimizer.step()
-            if loss.item() < eps:
-                break
+            # if loss.item() < eps:
+            #     break
         return model.get_points()
 
     def _grad_down_points(self, model, optimizer, runs, eps):
