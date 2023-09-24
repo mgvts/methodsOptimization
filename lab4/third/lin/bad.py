@@ -21,13 +21,15 @@ def minimize_with_linear_constraints():
     ub = np.array([10, np.inf, 10, np.inf])
     linear_constraint = LinearConstraint(A, lb=lb, ub=ub)
 
-    x0 = np.array([0, 7.5])
+    x0 = np.array([-20, 7])
 
-    path_storage_bounds = []
-    print(minimize(f(path_storage_bounds), x0, constraints=[linear_constraint]))
+    path_storage_bounds = [x0]
+    print(minimize(rosen,x0 , method="trust-constr",  constraints=[linear_constraint],
+                   callback=lambda x, ans_i: path_storage_bounds.append(x)))
 
-    path_storage_no_bounds = []
-    print(minimize(f(path_storage_no_bounds), x0))
+    path_storage_no_bounds = [x0]
+    print(minimize(rosen, x0,
+                   callback=lambda x: path_storage_no_bounds.append(x)))
 
     data = {
         'bound_points': path_storage_bounds,
